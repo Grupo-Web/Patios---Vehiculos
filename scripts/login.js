@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     window.location.href = '../index.html';
 s
-                }, 1500);
+                }, 1000);
 
             } else {
                 displayMessage('Usuario o contraseña incorrectos.', 'error');
