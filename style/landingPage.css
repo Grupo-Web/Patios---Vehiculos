@@ -1,0 +1,160 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#encabezado{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-wrap: wrap; 
+    background-color: rgb(241, 241, 241);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
+}
+
+#encabezado .enlaces {
+    font-family: 'ToyotaType';
+    font-weight: 600;
+    text-decoration: none;
+    margin: 20px;
+    color: black;
+}
+
+#navegacion a:hover {
+    color: red;
+}
+
+.logo{
+    margin: 10px;
+    width: 130px; 
+    max-width: 100%; 
+    filter: drop-shadow(5px 5px 10px gray)
+}
+
+.hero {
+    font-family: 'ToyotaType';
+    width: 100%;
+    height: 100vh;
+    position: relative;
+    color: white;
+    text-align: left; 
+    padding-left: 50px; 
+    display: flex;
+    align-items: flex-start; 
+    flex-direction: column; 
+    justify-content: center;
+}
+
+.hero-img {
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.5);
+    transform: scaleX(-1);
+}
+.sello-rojo {
+    width: 100%;
+}
+
+.hero-text {
+    font-style: italic;
+    max-width: 600px;
+    width: 90%;
+    text-align: left; 
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color:rgb(255, 255, 255);
+    line-height: 80px;
+    font-size: 20px;
+}
+
+.sub-text{
+    font-size: 0.8em;
+}
+
+.titulo {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    font-style: normal;
+    font-weight: 800;
+    font-weight: bolder;
+    text-shadow: 0px 0px 20px rgb(255, 255, 255);
+    font-size: 3rem;
+    margin-bottom: 20px;
+    color:rgb(0, 0, 0);
+    letter-spacing: 0.5px;
+    font-size: 2.7em;
+}
+.tituloRojo{
+    color: red;
+}
+
+
+.descripcion, .descripcion-secundaria {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-bottom: 15px;
+}
+
+.btnCatalogo {
+    font-family: 'ToyotaType';
+    font-size: 20px;
+    width: 280px;
+    height: 40px;
+    background-color:transparent;
+    border: 2px solid rgb(255, 255, 255);
+    color: rgb(255, 255, 255);
+    text-align: center;
+    cursor: pointer;
+}
+
+.btnCatalogo:hover {
+    background-color: #ffffff;
+    color: black;
+    transform: scale(1.03);
+    transition: 0.3s ease;
+    box-shadow: 0px 0px 25px rgba(0,0,0,0.3);
+}
+
+.piePagina{
+    padding-left: 20px;
+    padding-right: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: black;
+    width: 100%;
+    height: 100px;
+}
+.contenidoPie{
+    font-family: 'ToyotaType';
+    font-weight: 400;
+    color: #ffffff;
+    font-size: 12px;
+    font-style: italic;
+    opacity: 0.6;
+    text-shadow: 0px 0px 3px rgb(168, 168, 168);
+}
+.contenedorRedes{
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+
+}
+.logosRedes{
+    width: 22px;
+    filter: drop-shadow(5px 5px 10px rgb(235, 26, 26))
+}
