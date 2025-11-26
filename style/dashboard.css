@@ -1,0 +1,310 @@
+.principal {
+    background-color: #ef3620;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+.dashboard-header {
+    font-family: 'ToyotaType';
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+}
+
+.dashboard-header h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.texto-rojo {
+    color: #000000;
+}
+
+.subtitulo-dashboard {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.95;
+}
+
+/* ========== TARJETAS KPI ========== */
+
+.tarjetas-resumen {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 50px;
+    padding: 0 40px;
+}
+
+.tarjeta-kpi {
+    font-family: 'ToyotaType';
+    width: 280px;
+    min-height: 140px;
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+}
+
+.tarjeta-kpi:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.kpi-1 {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+}
+
+.kpi-2 {
+    background: linear-gradient(145deg, #e8e8e8, #d3d3d3);
+}
+
+.kpi-3 {
+    background: linear-gradient(145deg, #dedede, #c9c9c9);
+}
+
+.kpi-4 {
+    background: linear-gradient(145deg, #d2d2d2, #bdbdbd);
+}
+
+.kpi-icono {
+    font-size: 3rem;
+}
+
+.kpi-contenido h3 {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.kpi-numero {
+    font-size: 2rem;
+    font-weight: 900;
+    color: #dc2e03;
+    margin: 0;
+    text-shadow: 0px 0px 3px rgba(220, 46, 3, 0.3);
+}
+
+/* ========== GRÁFICOS ========== */
+
+.seccion-graficos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+    gap: 30px;
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+.grafico-card {
+    font-family: 'ToyotaType';
+    background: white;
+    border-radius: 14px;
+    padding: 25px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    transition: all 0.3s ease;
+}
+
+.grafico-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+.grafico-card h3 {
+    font-size: 1.3rem;
+    color: #1a1a1a;
+    margin-bottom: 20px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.grafico-card canvas {
+    max-height: 300px;
+}
+
+/* ========== TABLA DE RANKING ========== */
+
+.seccion-tabla {
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+.tabla-card {
+    font-family: 'ToyotaType';
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.tabla-card h3 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    font-weight: 700;
+    text-align: center;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.tabla-ranking {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-ranking thead {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+}
+
+.tabla-ranking th {
+    padding: 15px;
+    text-align: left;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 2px solid #dc2e03;
+}
+
+.tabla-ranking td {
+    padding: 15px;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-ranking tbody tr:hover {
+    background: rgba(239, 54, 32, 0.05);
+}
+
+.badge-ranking {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.badge-oro {
+    background: linear-gradient(145deg, #ffd700, #ffed4e);
+    color: #000;
+}
+
+.badge-plata {
+    background: linear-gradient(145deg, #c0c0c0, #e8e8e8);
+    color: #000;
+}
+
+.badge-bronce {
+    background: linear-gradient(145deg, #cd7f32, #e6a85c);
+    color: #fff;
+}
+
+.badge-normal {
+    background: linear-gradient(145deg, #e0e0e0, #f5f5f5);
+    color: #333;
+}
+
+/* ========== BOTONES DE ACCIÓN ========== */
+
+.seccion-acciones {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 0 40px;
+}
+
+.btn-accion {
+    font-family: 'ToyotaType';
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 15px 30px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-accion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.btn-prueba {
+    background: linear-gradient(145deg, #4caf50, #66bb6a);
+    color: white;
+}
+
+.btn-exportar {
+    background: linear-gradient(145deg, #2196f3, #42a5f5);
+    color: white;
+}
+
+.btn-limpiar {
+    background: linear-gradient(145deg, #f44336, #ef5350);
+    color: white;
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .principal {
+        padding-top: 100px;
+    }
+
+    .dashboard-header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitulo-dashboard {
+        font-size: 1rem;
+    }
+
+    .tarjetas-resumen,
+    .seccion-graficos,
+    .seccion-tabla,
+    .seccion-acciones {
+        padding: 0 20px;
+    }
+
+    .seccion-graficos {
+        grid-template-columns: 1fr;
+    }
+
+    .tarjeta-kpi {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .tabla-ranking {
+        font-size: 0.9rem;
+    }
+
+    .tabla-ranking th,
+    .tabla-ranking td {
+        padding: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi-numero {
+        font-size: 1.5rem;
+    }
+
+    .btn-accion {
+        width: 100%;
+        max-width: 300px;
+    }
+}
