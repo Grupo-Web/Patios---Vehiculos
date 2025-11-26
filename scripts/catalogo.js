@@ -1,35 +1,17 @@
 import { autos } from "../data/catalogo_autos.js";
 
-// ===============================
-// CARGAR JSON DE AUTOS
-// ===============================
-
-let autos = [];
+// ELEMENTOS DEL DOM
 const contenedorCatalogo = document.querySelector(".catalogo-autos");
 const formBusqueda = document.getElementById("form-busqueda");
 const inputBusqueda = document.getElementById("input-busqueda");
 
-// Cargar archivo JSON
-async function cargarAutos() {
-    try {
-        const respuesta = await fetch("catalogo_autos.json");
-        autos = await respuesta.json();
-        mostrarCatalogo(autos);
-    } catch (error) {
-        console.error("Error al cargar el catálogo:", error);
-    }
-}
-
 // ===============================
 // MOSTRAR AUTOS EN EL HTML
 // ===============================
-
 function mostrarCatalogo(listaAutos) {
-    contenedorCatalogo.innerHTML = ""; // Limpiar antes de renderizar
+    contenedorCatalogo.innerHTML = "";
 
-    // Crear filas de 3 autos
     for (let i = 0; i < listaAutos.length; i += 3) {
-
         const fila = document.createElement("section");
         fila.classList.add("fila-autos");
 
@@ -40,10 +22,10 @@ function mostrarCatalogo(listaAutos) {
             card.classList.add("auto-card");
 
             card.innerHTML = `
-                <img src="imagenes_autos/${auto.id}.jpg" alt="${auto.marca} ${auto.modelo}">
+                <img src="${auto.imagen}" alt="${auto.marca} ${auto.modelo}">
                 <h3>${auto.marca} ${auto.modelo}</h3>
                 <p>Año: ${auto.año} • Motor: ${auto.motor}</p>
-                <a href="detalles/auto_${auto.id}.html">Ver más</a>
+                <a href="detalle_auto.html?id=${auto.id}">Ver más</a>
             `;
 
             fila.appendChild(card);
@@ -53,10 +35,12 @@ function mostrarCatalogo(listaAutos) {
     }
 }
 
+// Mostrar catálogo inicial
+mostrarCatalogo(autos);
+
 // ===============================
 // BUSCADOR
 // ===============================
-
 formBusqueda.addEventListener("submit", (e) => {
     e.preventDefault();
 
@@ -70,11 +54,9 @@ formBusqueda.addEventListener("submit", (e) => {
     const filtrados = autos.filter(auto =>
         auto.marca.toLowerCase().includes(texto) ||
         auto.modelo.toLowerCase().includes(texto) ||
-        auto.año.toString().includes(texto)
+        auto.año.toString().includes(texto) ||
+        auto.tipo.toLowerCase().includes(texto)
     );
 
     mostrarCatalogo(filtrados);
 });
-
-// Inicializar
-cargarAutos();

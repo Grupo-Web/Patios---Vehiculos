@@ -9,9 +9,17 @@
 </head>
 <body>
 
-    <header class="header-detalle">
-        <h2>Detalles del Vehículo</h2>
-        <a href="catalogo.html" class="btn-volver">← Volver al catálogo</a>
+    <!-- Contenedor para notificaciones push -->
+    <div id="toast-container"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-empresa">
+                <img src="../img/logos/logo.png" alt="Logo de la Empresa">
+            </div>
+            <h2>Detalles del Vehículo</h2>
+            <a href="catalogo.html" class="btn-volver">← Volver al catálogo</a>
+        </div>
     </header>
 
     <main class="detalle-container">
@@ -36,6 +44,16 @@
             <h3>Colores disponibles</h3>
             <div id="auto-colores" class="colores"></div>
 
+            <!-- ===========================
+                 BOTONES DE ACCIÓN
+            ============================ -->
+            <div class="acciones-detalle">
+                <button id="btn-testdrive" class="btn-testdrive">Agendar Test Drive</button>
+                <a href="/src/asesores.html" class="btn-asesor">Contactar Asesor</a>
+                <a href="planes_financieros.html" class="btn-cotizar">Simular Pago</a>
+                <button id="btn-fav" class="btn-favorito">❤ Guardar en favoritos</button>
+            </div>
+
         </div>
 
     </main>
@@ -44,3 +62,4 @@
     
 </body>
 </html>
+

@@ -9,7 +9,7 @@ export const autos = [
         transmision: "Automática",
         precio: 23000,
         colores: ["Blanco", "Gris", "Negro"],
-        imagen: "../img/autos/Toyota_corrolla_sedan.png"
+        imagen: "../img/autos/Toyota_corolla_sedan.png"
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ export const autos = [
         transmision: "Manual",
         precio: 25000,
         colores: ["Rojo", "Azul", "Negro"],
-        imagen: "imagenes_autos/civic_2023.jpg"
+        imagen: "../img/autos/honda-civic.jpg"
     },
     {
         id: 3,
@@ -33,7 +33,7 @@ export const autos = [
         transmision: "Automática",
         precio: 32000,
         colores: ["Blanco", "Plateado"],
-        imagen: "imagenes_autos/mazda_cx5_2021.jpg"
+        imagen: "../img/autos/mazda_cx5.jpg"
     },
     {
         id: 4,
@@ -45,7 +45,7 @@ export const autos = [
         transmision: "Automática",
         precio: 30000,
         colores: ["Azul", "Negro", "Gris"],
-        imagen: "imagenes_autos/tucson_2022.jpg"
+        imagen: "../img/autos/hyundai_tucson.png"
     },
     {
         id: 5,
@@ -57,7 +57,7 @@ export const autos = [
         transmision: "Manual",
         precio: 55000,
         colores: ["Amarillo", "Negro", "Rojo"],
-        imagen: "imagenes_autos/mustang_2023.jpg"
+        imagen: "../img/autos/ford-Mustang.png"
     },
     {
         id: 6,
@@ -69,6 +69,6 @@ export const autos = [
         transmision: "Automática",
         precio: 60000,
         colores: ["Rojo", "Blanco", "Negro"],
-        imagen: "imagenes_autos/camaro_2022.jpg"
+        imagen: "../img/autos/Chevrolet_Camaro.jpg"
     }
 ];

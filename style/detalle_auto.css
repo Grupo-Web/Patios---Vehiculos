@@ -1,3 +1,26 @@
+/* ======================================
+   ESTILOS EXISTENTES (NO MODIFICADOS)
+====================================== */
+header {
+    background-color: #cccccc;
+    padding: 15px 30px;
+    border-bottom: 1px solid #bcbcbc;
+    font-style: italic;
+    color: #e70000; 
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo-empresa img {
+    width: 140px;
+    height: auto;
+    shape-outside: margin-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, Helvetica, sans-serif;
@@ -5,7 +28,7 @@ body {
 }
 
 .header-detalle {
-    background: white;
+    background: #bf1111;
     padding: 15px 25px;
     border-bottom: 1px solid #ddd;
     display: flex;
@@ -15,16 +38,16 @@ body {
 
 .btn-volver {
     text-decoration: none;
-    color: #444;
+    color: #ffffff;
     font-size: 14px;
-    background: #eaeaea;
+    background: #000000;
     padding: 5px 12px;
     border-radius: 6px;
     transition: 0.2s;
 }
 
 .btn-volver:hover {
-    background: #ccc;
+    background: #ae0a0a;
 }
 
 .detalle-container {
@@ -71,3 +94,90 @@ body {
     border-radius: 8px;
     font-size: 14px;
 }
+
+
+/* ======================================
+   BOTONES DEL DETALLE — NUEVO
+====================================== */
+
+.acciones-detalle {
+    margin-top: 25px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+}
+
+/* Estilo general para botones */
+.acciones-detalle button,
+.acciones-detalle a {
+    padding: 10px 18px;
+    border-radius: 8px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.25s;
+    font-weight: bold;
+}
+
+/* 1. Agendar Test Drive */
+.btn-testdrive {
+    background: #d40000;
+    color: #ffffff;
+}
+.btn-testdrive:hover {
+    background: #a60000;
+}
+
+/* 2. Contactar asesor */
+.btn-asesor {
+    background: #004aad;
+    color: white;
+}
+.btn-asesor:hover {
+    background: #003580;
+}
+
+/* 3. Simular Pago */
+.btn-cotizar {
+    background: #008c4a;
+    color: white;
+}
+.btn-cotizar:hover {
+    background: #006a38;
+}
+
+/* 4. Guardar en favoritos */
+.btn-favorito {
+    background: #e2e2e2;
+    color: #333;
+}
+.btn-favorito:hover {
+    background: #cfcfcf;
+}
+
+/* TOAST / NOTIFICACIONES */
+#toast-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: #333;
+    color: #fff;
+    padding: 12px 18px;
+    border-radius: 6px;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all .4s ease;
+    font-size: 14px;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
