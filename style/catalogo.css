@@ -1,0 +1,175 @@
+/* ===========================
+   ESTILOS GENERALES
+=========================== */
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background-color: #f4f4f4;
+}
+
+/* ===========================
+   HEADER
+=========================== */
+header {
+    background-color: #ffffff;
+    padding: 15px 30px;
+    border-bottom: 1px solid #ddd;
+}
+
+/* CONTENEDOR PRINCIPAL DEL HEADER */
+.header-container {
+    display: flex;
+    justify-content: space-between;  /* Logo izquierda – búsqueda derecha */
+    align-items: center;             /* Alineación vertical */
+}
+
+/* LOGO */
+.logo-empresa img {
+    width: 140px;
+    height: auto;
+}
+
+/* BARRA DE BÚSQUEDA */
+.busqueda form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.busqueda input {
+    padding: 8px 12px;
+    width: 250px;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.busqueda button {
+    padding: 8px 16px;
+    border: none;
+    background-color: #bf1111;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.busqueda button:hover {
+    background-color: #a10000;
+}
+
+
+
+/* ===========================
+   MENÚ DE NAVEGACIÓN
+=========================== */
+.menu-navegacion {
+    background-color: #bf1111;
+    padding: 10px 0;
+}
+
+.menu-navegacion ul {
+    list-style: none;
+    display: flex;
+    gap: 40px;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+}
+
+.menu-navegacion a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu-navegacion a:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   CATÁLOGO DE AUTOS
+=========================== */
+.catalogo-autos {
+    padding: 40px;
+}
+
+.fila-autos {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+/* Tarjetas de autos */
+.auto-card {
+    background-color: white;
+    width: 300px;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    text-align: center;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auto-card img {
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.auto-card h3 {
+    margin: 15px 0 5px;
+    font-size: 20px;
+    color: #003366;
+}
+
+.auto-card p {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.auto-card a {
+    display: inline-block;
+    padding: 8px 12px;
+    background-color: #0066cc;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+.auto-card a:hover {
+    background-color: #004c99;
+}
+
+/* Hover */
+.auto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+}
+
+/* ===========================
+   FOOTER
+=========================== */
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+.contenedorRedes{
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.logosRedes{
+    width: 22px;
+    filter: drop-shadow(5px 5px 10px rgb(100, 0, 0));
+    display: flex;
+    justify-items: center;
+}
+

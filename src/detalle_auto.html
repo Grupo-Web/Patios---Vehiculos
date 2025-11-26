@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalles del Vehículo</title>
+
+    <link rel="stylesheet" href="../style/detalle_auto.css">
+</head>
+<body>
+
+    <!-- Contenedor para notificaciones push -->
+    <div id="toast-container"></div>
+
+    <header>
+        <div class="header-container">
+            <div class="logo-empresa">
+                <img src="../img/logos/logo.png" alt="Logo de la Empresa">
+            </div>
+            <h2>Detalles del Vehículo</h2>
+            <a href="catalogo.html" class="btn-volver">← Volver al catálogo</a>
+        </div>
+    </header>
+
+    <main class="detalle-container">
+
+        <div class="imagen-container">
+            <img id="auto-imagen" src="" alt="Auto">
+        </div>
+
+        <div class="info-container">
+            <h2 id="auto-nombre"></h2>
+
+            <ul class="lista-detalles">
+                <li><strong>Marca:</strong> <span id="auto-marca"></span></li>
+                <li><strong>Modelo:</strong> <span id="auto-modelo"></span></li>
+                <li><strong>Año:</strong> <span id="auto-anio"></span></li>
+                <li><strong>Tipo:</strong> <span id="auto-tipo"></span></li>
+                <li><strong>Motor:</strong> <span id="auto-motor"></span></li>
+                <li><strong>Transmisión:</strong> <span id="auto-transmision"></span></li>
+                <li><strong>Precio:</strong> $<span id="auto-precio"></span></li>
+            </ul>
+
+            <h3>Colores disponibles</h3>
+            <div id="auto-colores" class="colores"></div>
+
+            <!-- ===========================
+                 BOTONES DE ACCIÓN
+            ============================ -->
+            <div class="acciones-detalle">
+                <button id="btn-testdrive" class="btn-testdrive">Agendar Test Drive</button>
+                <a href="/src/asesores.html" class="btn-asesor">Contactar Asesor</a>
+                <a href="planes_financieros.html" class="btn-cotizar">Simular Pago</a>
+                <button id="btn-fav" class="btn-favorito">❤ Guardar en favoritos</button>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script type="module" src="/scripts/detalle_auto.js"></script>
+    
+</body>
+</html>
+
