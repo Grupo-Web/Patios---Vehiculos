@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Rendimiento - Pride Autosales</title>
+    <link rel="stylesheet" href="../style/fonts.css">
+    <link rel="stylesheet" href="../style/landingPage.css">
+    <link rel="stylesheet" href="../style/dashboard.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header id="encabezado">
+        <a href="landingPage.html">
+            <img class="logo" src="../img/logos/logo.png" alt="">
+        </a>
+        <nav id="navegacion">
+            <a class="enlaces" href="catalogo.html">Catálogo</a>
+            <a class="enlaces" href="planes_financieros.html">Planes</a>
+            <a class="enlaces" href="asesores.html">Asesores</a>
+            <a class="enlaces" href="dashboard.html">Dashboard</a>
+            <a class="enlaces" href="login.html">Cerrar Sesión</a>
+        </nav>
+    </header>
+
+    <main class="principal">
+        <div class="dashboard-header">
+            <h1>Dashboard de <span class="texto-rojo">Rendimiento</span></h1>
+            <p class="subtitulo-dashboard">Panel de control y estadísticas de cotizaciones</p>
+        </div>
+
+        <!-- Tarjetas de Resumen -->
+        <section class="tarjetas-resumen">
+            <div class="tarjeta-kpi kpi-1">
+                <div class="kpi-icono">📊</div>
+                <div class="kpi-contenido">
+                    <h3>Total Cotizaciones</h3>
+                    <p class="kpi-numero" id="total-cotizaciones">0</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-kpi kpi-2">
+                <div class="kpi-icono">💰</div>
+                <div class="kpi-contenido">
+                    <h3>Monto Total</h3>
+                    <p class="kpi-numero" id="monto-total">$0</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-kpi kpi-3">
+                <div class="kpi-icono">🏆</div>
+                <div class="kpi-contenido">
+                    <h3>Top Asesor</h3>
+                    <p class="kpi-numero" id="top-asesor">-</p>
+                </div>
+            </div>
+
+            <div class="tarjeta-kpi kpi-4">
+                <div class="kpi-icono">🚗</div>
+                <div class="kpi-contenido">
+                    <h3>Top Vehículo</h3>
+                    <p class="kpi-numero" id="top-vehiculo">-</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gráficos -->
+        <section class="seccion-graficos">
+            <div class="grafico-card">
+                <h3>Cotizaciones por Asesor</h3>
+                <canvas id="chart-asesores"></canvas>
+            </div>
+
+            <div class="grafico-card">
+                <h3>Vehículos Más Cotizados</h3>
+                <canvas id="chart-vehiculos"></canvas>
+            </div>
+
+            <div class="grafico-card">
+                <h3>Planes de Financiamiento</h3>
+                <canvas id="chart-planes"></canvas>
+            </div>
+
+            <div class="grafico-card">
+                <h3>Evolución Mensual</h3>
+                <canvas id="chart-mensual"></canvas>
+            </div>
+        </section>
+
+        <!-- Tabla de Ranking -->
+        <section class="seccion-tabla">
+            <div class="tabla-card">
+                <h3>🏆 Ranking de Asesores</h3>
+                <table class="tabla-ranking">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Asesor</th>
+                            <th>Cotizaciones</th>
+                            <th>Posición</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbody-asesores">
+                        <!-- Se llenará dinámicamente -->
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Botones de Acción -->
+        <section class="seccion-acciones">
+            <button id="btn-generar-prueba" class="btn-accion btn-prueba">
+                🧪 Generar Datos de Prueba
+            </button>
+            <button id="btn-exportar" class="btn-accion btn-exportar">
+                📥 Exportar a CSV
+            </button>
+            <button id="btn-limpiar" class="btn-accion btn-limpiar">
+                🗑️ Limpiar Datos
+            </button>
+        </section>
+    </main>
+
+    <footer class="piePagina">
+        <h3 class="contenidoPie">Copyright © 2024 Pride Autosales - Todos los derechos reservados. Términos y Condiciones</h3>
+        <div class="contenedorRedes">
+            <a href="https://www.facebook.com/"> 
+                <img class="logosRedes" src="../img/logos/logoFacebook.png" alt="">
+            </a>
+            <a href="https://www.instagram.com/"> 
+                <img class="logosRedes" src="../img/logos/logoInstagram.png" alt="">
+            </a>
+            <a href="https://www.tiktok.com/"> 
+                <img class="logosRedes" src="../img/logos/logoTikTok.png" alt="">
+            </a>
+            <a href="https://x.com/"> 
+                <img class="logosRedes" src="../img/logos/logoX.png" alt="">
+            </a>
+        </div>
+    </footer>
+
+    <script type="module" src="../scripts/dashboard.js"></script>
+</body>
+</html>

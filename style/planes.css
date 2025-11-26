@@ -1,0 +1,381 @@
+
+.principal {
+    background-color: #ef3620;
+    width: 100%;
+    min-height: 100vh;
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+.simulador-header {
+    font-family: 'ToyotaType';
+    text-align: center;
+    margin-bottom: 50px;
+    padding: 0 20px;
+}
+
+.simulador-header h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.texto-rojo {
+    color: #000000;
+}
+
+.subtitulo-simulador {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.95;
+}
+
+/* ========== CONTENEDOR SIMULADOR ========== */
+
+.contenedor-simulador {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+/* ========== FORMULARIO ========== */
+
+.formulario-simulador {
+    font-family: 'ToyotaType';
+    width: 450px;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.formulario-simulador h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.campo-form {
+    margin-bottom: 20px;
+}
+
+.campo-form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.campo-form select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+    font-family: 'ToyotaType';
+}
+
+.campo-form select:focus {
+    outline: none;
+    border-color: #ef3620;
+    background: white;
+}
+
+/* ========== BOTÓN SIMULAR ========== */
+
+.btn-simular {
+    font-family: 'ToyotaType';
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #dc2e03, #ef3620);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-simular:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #c02802, #dc2e03);
+}
+
+/* ========== RESULTADO SIMULADOR ========== */
+
+.resultado-simulador {
+    font-family: 'ToyotaType';
+    width: 450px;
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.resultado-simulador h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.resumen-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-inicial {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    padding: 20px;
+}
+
+.dato-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #ef3620;
+}
+
+.dato-resumen strong {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.dato-resumen span {
+    color: #dc2e03;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.cuota-destacada {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.cuota-destacada p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.cuota-destacada .monto-cuota {
+    font-size: 2.5rem;
+    color: #dc2e03;
+    font-weight: 900;
+    text-shadow: 0px 0px 3px rgba(220, 46, 3, 0.3);
+}
+
+/* ========== TABLA DE AMORTIZACIÓN ========== */
+
+.seccion-amortizacion {
+    padding: 0 40px;
+    margin-bottom: 50px;
+}
+
+.tabla-amortizacion-card {
+    font-family: 'ToyotaType';
+    background: white;
+    border-radius: 14px;
+    padding: 30px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.tabla-amortizacion-card h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    text-align: center;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.tabla-amortizacion {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-amortizacion thead {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tabla-amortizacion th {
+    padding: 15px;
+    text-align: center;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 2px solid #dc2e03;
+}
+
+.tabla-amortizacion td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-amortizacion tbody tr:hover {
+    background: rgba(239, 54, 32, 0.05);
+}
+
+.tabla-amortizacion tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* ========== BOTÓN GUARDAR ========== */
+
+.btn-guardar {
+    font-family: 'ToyotaType';
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #4caf50, #66bb6a);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-guardar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #388e3c, #4caf50);
+}
+
+/* ========== TOAST NOTIFICACIÓN ========== */
+
+#toast-container {
+    position: fixed;
+    top: 100px;
+    right: 20px;
+    z-index: 9999;
+}
+
+.toast {
+    background: #333;
+    color: #fff;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-top: 10px;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.4s ease;
+    font-size: 1rem;
+    font-family: 'ToyotaType';
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast.success {
+    background: linear-gradient(145deg, #4caf50, #66bb6a);
+}
+
+.toast.error {
+    background: linear-gradient(145deg, #f44336, #ef5350);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .principal {
+        padding-top: 100px;
+    }
+
+    .simulador-header h1 {
+        font-size: 2rem;
+    }
+
+    .subtitulo-simulador {
+        font-size: 1rem;
+    }
+
+    .contenedor-simulador,
+    .seccion-amortizacion {
+        padding: 0 20px;
+    }
+
+    .formulario-simulador,
+    .resultado-simulador {
+        width: 100%;
+        max-width: 450px;
+    }
+
+    .cuota-destacada .monto-cuota {
+        font-size: 2rem;
+    }
+
+    .tabla-amortizacion {
+        font-size: 0.9rem;
+    }
+
+    .tabla-amortizacion th,
+    .tabla-amortizacion td {
+        padding: 10px 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .simulador-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .tabla-amortizacion {
+        font-size: 0.8rem;
+    }
+
+    .tabla-amortizacion th,
+    .tabla-amortizacion td {
+        padding: 8px 5px;
+    }
+
+    .dato-resumen {
+        flex-direction: column;
+        gap: 5px;
+        text-align: center;
+    }
+
+    .cuota-destacada .monto-cuota {
+        font-size: 1.8rem;
+    }
+}
