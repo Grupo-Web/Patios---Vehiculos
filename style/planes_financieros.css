@@ -1,0 +1,346 @@
+.principal {
+    background-color: #ef3620;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 120px;
+    padding-bottom: 60px;
+    gap: 40px;
+}
+
+/* ========== HEADER ========== */
+
+.planes-header {
+    font-family: 'ToyotaType';
+    text-align: center;
+    margin-bottom: 20px;
+    padding: 0 20px;
+}
+
+.planes-header h1 {
+    color: white;
+    font-size: 3rem;
+    font-weight: 700;
+    text-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
+}
+
+.texto-rojo {
+    color: #000000;
+}
+
+.subtitulo-planes {
+    color: white;
+    font-size: 1.2rem;
+    font-weight: 400;
+    opacity: 0.95;
+}
+
+/* ========== CONTENEDOR DE TARJETAS ========== */
+
+.contenedor-planes {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: stretch;
+    gap: 40px;
+    padding: 0 40px;
+}
+
+/* ========== TARJETAS DE PLANES (Estilo similar a asesores) ========== */
+
+.tarjeta-plan {
+    font-family: 'ToyotaType';
+    width: 340px;
+    min-height: 500px;
+    border-radius: 14px;
+    padding: 30px;
+    background: white;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.tarjeta-plan:hover {
+    transform: translateY(-6px) scale(1.03);
+    box-shadow: 0 12px 28px rgba(0, 0, 0, 0.25);
+}
+
+/* Gradientes diferentes para cada plan (igual que asesores) */
+.plan-0 {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+}
+
+.plan-1 {
+    background: linear-gradient(145deg, #e8e8e8, #d3d3d3);
+}
+
+.plan-2 {
+    background: linear-gradient(145deg, #dedede, #c9c9c9);
+}
+
+/* ========== ELEMENTOS DE LA TARJETA ========== */
+
+.icono-plan {
+    font-size: 5rem;
+    margin-bottom: 20px;
+    filter: drop-shadow(0px 4px 8px rgba(0, 0, 0, 0.2));
+}
+
+.nombre-plan {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.plazo-plan {
+    font-size: 1.8rem;
+    color: #dc2e03;
+    font-weight: 700;
+    margin-bottom: 25px;
+    padding: 10px 20px;
+    background: rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+}
+
+.detalle-plan {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 20px;
+    background: rgba(255, 255, 255, 0.6);
+    border-radius: 8px;
+    margin-bottom: 12px;
+    border-left: 4px solid #ef3620;
+}
+
+.detalle-plan .etiqueta {
+    font-size: 1rem;
+    color: #555;
+    font-weight: 600;
+}
+
+.detalle-plan .valor {
+    font-size: 1.4rem;
+    color: #dc2e03;
+    font-weight: 900;
+}
+
+.descripcion-plan {
+    padding: 20px 10px;
+    font-size: 1rem;
+    color: #333;
+    line-height: 1.6;
+    opacity: 0.9;
+    flex-grow: 1;
+}
+
+/* ========== BOTÓN SIMULAR ========== */
+
+.btn-simular-plan {
+    font-family: 'ToyotaType';
+    display: inline-block;
+    width: 100%;
+    padding: 15px 20px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #dc2e03, #ef3620);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 15px;
+}
+
+.btn-simular-plan:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #c02802, #dc2e03);
+}
+
+/* ========== SECCIÓN CTA SIMULADOR ========== */
+
+.cta-simulador {
+    font-family: 'ToyotaType';
+    background: white;
+    border-radius: 14px;
+    padding: 50px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    max-width: 750px;
+    width: 90%;
+}
+
+.cta-simulador h2 {
+    font-size: 2.2rem;
+    color: #1a1a1a;
+    margin-bottom: 15px;
+    font-weight: 700;
+    text-shadow: 0px 0px 3px rgb(51, 51, 51);
+}
+
+.cta-simulador p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 30px;
+    line-height: 1.6;
+}
+
+.btn-simulador {
+    font-family: 'ToyotaType';
+    display: inline-block;
+    padding: 18px 50px;
+    font-size: 1.3rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #4caf50, #66bb6a);
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.btn-simulador:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #388e3c, #4caf50);
+}
+
+/* ========== RESPONSIVE ========== */
+
+@media (max-width: 768px) {
+    .principal {
+        padding-top: 100px;
+        gap: 30px;
+    }
+
+    .planes-header h1 {
+        font-size: 2.2rem;
+    }
+
+    .subtitulo-planes {
+        font-size: 1rem;
+    }
+
+    .contenedor-planes {
+        padding: 0 20px;
+        gap: 30px;
+    }
+
+    .tarjeta-plan {
+        width: 100%;
+        max-width: 400px;
+        min-height: 450px;
+    }
+
+    .icono-plan {
+        font-size: 4rem;
+    }
+
+    .nombre-plan {
+        font-size: 1.8rem;
+    }
+
+    .plazo-plan {
+        font-size: 1.5rem;
+    }
+
+    .cta-simulador {
+        padding: 35px;
+        width: 90%;
+    }
+
+    .cta-simulador h2 {
+        font-size: 1.8rem;
+    }
+
+    .cta-simulador p {
+        font-size: 1rem;
+    }
+
+    .btn-simulador {
+        padding: 15px 40px;
+        font-size: 1.1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .planes-header h1 {
+        font-size: 1.8rem;
+    }
+
+    .subtitulo-planes {
+        font-size: 0.9rem;
+    }
+
+    .tarjeta-plan {
+        padding: 25px;
+        min-height: 420px;
+    }
+
+    .icono-plan {
+        font-size: 3.5rem;
+    }
+
+    .nombre-plan {
+        font-size: 1.6rem;
+    }
+
+    .plazo-plan {
+        font-size: 1.3rem;
+    }
+
+    .detalle-plan {
+        padding: 12px 15px;
+        flex-direction: column;
+        gap: 8px;
+        text-align: center;
+    }
+
+    .detalle-plan .etiqueta {
+        font-size: 0.9rem;
+    }
+
+    .detalle-plan .valor {
+        font-size: 1.2rem;
+    }
+
+    .descripcion-plan {
+        font-size: 0.95rem;
+        padding: 15px 5px;
+    }
+
+    .btn-simular-plan {
+        font-size: 1rem;
+        padding: 12px 18px;
+    }
+
+    .cta-simulador {
+        padding: 25px;
+    }
+
+    .cta-simulador h2 {
+        font-size: 1.5rem;
+    }
+
+    .cta-simulador p {
+        font-size: 0.95rem;
+    }
+
+    .btn-simulador {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
