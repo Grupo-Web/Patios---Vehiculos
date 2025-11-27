@@ -19,7 +19,6 @@ body{
     border: 2px sólido rgba( 255, 255, 255,        .2);
     backdrop-filter: blur(60px);
     box-shadow: 0 0 10px rgba(0, 0, 0, .2);
-    color: #f0f0f0;
     border-radius: 10px;
     padding: 30px 40px;
 
@@ -44,12 +43,11 @@ body{
     outline: none;
     border-radius: 40px;
     font-size: 16px;
-    color: #f0f0f0;
     padding: 20px 45px 20px 20px;
 }
 
 .contenedores input::placeholder{
-    color: #f0f0f0;
+    color: #000000;
     font-size: 16px;
     padding-left: 20px;
 }
