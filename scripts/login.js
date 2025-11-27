@@ -1,3 +1,6 @@
+
+import users from '../data/cuentas.js';
+
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login form');
     const loginContainer = document.querySelector('.login');
@@ -13,27 +16,6 @@ document.addEventListener('DOMContentLoaded', () => {
         removeMessage();
 
         try {
-            const users = [
-                {
-                    "id": 1,
-                    "username": "admin",
-                    "password": "pass123",
-                    "role": "administrator"
-                },
-                {
-                    "id": 2,
-                    "username": "usuario01",
-                    "password": "clave456",
-                    "role": "user"
-                },
-                {
-                    "id": 3,
-                    "username": "invitado",
-                    "password": "guest",
-                    "role": "guest"
-                }
-            ];
-            
             const foundUser = users.find(user => 
                 user.username === usernameInput && user.password === passwordInput
             );
@@ -44,10 +26,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('currentUser', JSON.stringify(foundUser));
                 
                 setTimeout(() => {
-
-                    window.location.href = 'planes_financieros.html';
-s
-                }, 1000);
+                    window.location.href = '../src/planes_financieros.html';
+                }, 700);
 
             } else {
                 displayMessage('Usuario o contraseña incorrectos.', 'error');
