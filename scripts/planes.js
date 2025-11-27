@@ -1,252 +1,232 @@
-// scripts/planes.js
 import { autos } from '../data/catalogo_autos.js';
 import { integrantes } from '../data/db_asesores.js';
-import { gestorCotizaciones } from './cotizaciones.js';
+import { planes } from '../data/db_planes.js';
 
-// Tasas de interés por plazo
-const tasasInteres = {
-    12: 0.05,  // 5%
-    24: 0.07,  // 7%
-    36: 0.09,  // 9%
-    48: 0.11,  // 11%
-    60: 0.13   // 13%
-};
+const selectVehiculo = document.getElementById('select-vehiculo');
+const selectPlan = document.getElementById('select-plan');
+const selectAsesor = document.getElementById('select-asesor');
+const btnSimular = document.getElementById('btn-simular');
+const resultadoSimulador = document.getElementById('resultado-simulador');
+const seccionAmortizacion = document.getElementById('seccion-amortizacion');
+const tbodyAmortizacion = document.getElementById('tbody-amortizacion');
+const btnGuardar = document.getElementById('btn-guardar-cotizacion');
 
-let vehiculoSeleccionado = null;
+// Variables globales
 let simulacionActual = null;
 
-// Inicialización
 document.addEventListener('DOMContentLoaded', () => {
     cargarVehiculos();
+    cargarPlanes();
     cargarAsesores();
-    configurarEventos();
+    
+    btnSimular.addEventListener('click', simularFinanciamiento);
+    btnGuardar.addEventListener('click', guardarCotizacion);
 });
 
-// Cargar vehículos en el select
 function cargarVehiculos() {
-    const select = document.getElementById('select-vehiculo');
-    
     autos.forEach(auto => {
         const option = document.createElement('option');
         option.value = auto.id;
         option.textContent = `${auto.marca} ${auto.modelo} ${auto.año} - $${auto.precio.toLocaleString()}`;
-        select.appendChild(option);
+        selectVehiculo.appendChild(option);
     });
 }
 
-// Cargar asesores en el select
+function cargarPlanes() {
+    planes.forEach(plan => {
+        const option = document.createElement('option');
+        option.value = plan.id;
+        option.textContent = `${plan.nombre} (${plan.plazo} meses) - Inicial ${plan.cuotaInicial}% - Tasa ${plan.tasaInteres}%`;
+        selectPlan.appendChild(option);
+    });
+}
+
 function cargarAsesores() {
-    const select = document.getElementById('select-asesor');
-    
     integrantes.forEach(asesor => {
         const option = document.createElement('option');
         option.value = asesor.id;
         option.textContent = `${asesor.nombre} - ${asesor.rol}`;
-        select.appendChild(option);
+        selectAsesor.appendChild(option);
     });
 }
 
-// Configurar eventos
-function configurarEventos() {
-    // Selección de vehículo
-    document.getElementById('select-vehiculo').addEventListener('change', (e) => {
-        const id = parseInt(e.target.value);
-        if (id) {
-            vehiculoSeleccionado = autos.find(a => a.id === id);
-            mostrarInfoVehiculo();
-        } else {
-            document.getElementById('vehiculo-info').style.display = 'none';
-            vehiculoSeleccionado = null;
-        }
-    });
-
-    // Botón simular
-    document.getElementById('btn-simular').addEventListener('click', simularFinanciamiento);
-
-    // Botón guardar
-    document.getElementById('btn-guardar').addEventListener('click', guardarCotizacion);
-}
-
-// Mostrar información del vehículo seleccionado
-function mostrarInfoVehiculo() {
-    if (!vehiculoSeleccionado) return;
-
-    const infoDiv = document.getElementById('vehiculo-info');
-    infoDiv.style.display = 'flex';
-
-    document.getElementById('vehiculo-img').src = vehiculoSeleccionado.imagen;
-    document.getElementById('vehiculo-nombre').textContent = 
-        `${vehiculoSeleccionado.marca} ${vehiculoSeleccionado.modelo} ${vehiculoSeleccionado.año}`;
-    document.getElementById('vehiculo-detalles').textContent = 
-        `${vehiculoSeleccionado.tipo} • Motor ${vehiculoSeleccionado.motor} • ${vehiculoSeleccionado.transmision}`;
-    document.getElementById('vehiculo-precio').textContent = 
-        vehiculoSeleccionado.precio.toLocaleString();
-
-    // Sugerir entrada del 20%
-    const entradaSugerida = Math.round(vehiculoSeleccionado.precio * 0.20);
-    document.getElementById('entrada').value = entradaSugerida;
-}
-
-// Simular financiamiento
+// ========== CÁLCULO DE FINANCIAMIENTO ==========
 function simularFinanciamiento() {
-    if (!validarFormulario()) return;
+    const vehiculoId = parseInt(selectVehiculo.value);
+    const planId = parseInt(selectPlan.value);
+    const asesorId = parseInt(selectAsesor.value);
 
-    const entrada = parseFloat(document.getElementById('entrada').value);
-    const plazo = parseInt(document.getElementById('select-plazo').value);
-    const precio = vehiculoSeleccionado.precio;
-
-    // Validar entrada mínima (10%)
-    const entradaMinima = precio * 0.10;
-    if (entrada < entradaMinima) {
-        alert(`La entrada mínima es $${entradaMinima.toFixed(2)} (10% del precio)`);
+    if (!vehiculoId || !planId || !asesorId) {
+        mostrarToast('Por favor completa todos los campos', 'error');
         return;
     }
 
-    const montoFinanciar = precio - entrada;
-    const tasaAnual = tasasInteres[plazo];
-    const tasaMensual = tasaAnual / 12;
+    const vehiculo = autos.find(a => a.id === vehiculoId);
+    const plan = planes.find(p => p.id === planId);
+    const asesor = integrantes.find(i => i.id === asesorId);
 
-    // Fórmula de cuota: M = P * [i(1 + i)^n] / [(1 + i)^n - 1]
+    // Cálculos financieros
+    const precioVehiculo = vehiculo.precio;
+    const cuotaInicial = precioVehiculo * (plan.cuotaInicial / 100);
+    const montoFinanciar = precioVehiculo - cuotaInicial;
+    const tasaMensual = plan.tasaInteres / 100 / 12;
+    const numeroCuotas = plan.plazo;
+
+    // Fórmula de cuota mensual: M = P * [r(1+r)^n] / [(1+r)^n - 1]
     const cuotaMensual = montoFinanciar * 
-        (tasaMensual * Math.pow(1 + tasaMensual, plazo)) / 
-        (Math.pow(1 + tasaMensual, plazo) - 1);
+        (tasaMensual * Math.pow(1 + tasaMensual, numeroCuotas)) / 
+        (Math.pow(1 + tasaMensual, numeroCuotas) - 1);
 
-    const totalPagar = entrada + (cuotaMensual * plazo);
+    const totalAPagar = cuotaMensual * numeroCuotas;
+    const totalIntereses = totalAPagar - montoFinanciar;
 
     // Guardar simulación actual
     simulacionActual = {
-        vehiculo: vehiculoSeleccionado,
-        precio: precio,
-        entrada: entrada,
-        montoFinanciar: montoFinanciar,
-        plazo: plazo,
-        tasaAnual: tasaAnual * 100,
-        cuotaMensual: cuotaMensual,
-        totalPagar: totalPagar
+        vehiculo,
+        plan,
+        asesor,
+        precioVehiculo,
+        cuotaInicial,
+        montoFinanciar,
+        cuotaMensual,
+        totalAPagar,
+        totalIntereses,
+        fecha: new Date().toISOString()
     };
 
-    mostrarResultados();
+    mostrarResultado(simulacionActual);
+    generarTablaAmortizacion(montoFinanciar, cuotaMensual, tasaMensual, numeroCuotas);
+    seccionAmortizacion.style.display = 'block';
+    
+    mostrarToast('Simulación calculada exitosamente', 'success');
 }
 
-// Mostrar resultados de la simulación
-function mostrarResultados() {
-    const resultadosDiv = document.getElementById('resultados');
-    resultadosDiv.style.display = 'block';
-
-    document.getElementById('result-precio').textContent = 
-        simulacionActual.precio.toLocaleString('es-EC', { maximumFractionDigits: 0 });
-    document.getElementById('result-entrada').textContent = 
-        simulacionActual.entrada.toLocaleString('es-EC', { maximumFractionDigits: 0 });
-    document.getElementById('result-financiar').textContent = 
-        simulacionActual.montoFinanciar.toLocaleString('es-EC', { maximumFractionDigits: 0 });
-    document.getElementById('result-plazo').textContent = simulacionActual.plazo;
-    document.getElementById('result-tasa').textContent = simulacionActual.tasaAnual.toFixed(0);
-    document.getElementById('result-cuota').textContent = 
-        simulacionActual.cuotaMensual.toLocaleString('es-EC', { maximumFractionDigits: 2 });
-    document.getElementById('result-total').textContent = 
-        simulacionActual.totalPagar.toLocaleString('es-EC', { maximumFractionDigits: 0 });
-
-    // Scroll a resultados
-    resultadosDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+// ========== MOSTRAR RESULTADO ==========
+function mostrarResultado(sim) {
+    const resumenContenido = resultadoSimulador.querySelector('.resumen-contenido');
+    
+    resumenContenido.innerHTML = `
+        <div class="dato-resumen">
+            <strong>🚗 Vehículo:</strong>
+            <span>${sim.vehiculo.marca} ${sim.vehiculo.modelo}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>💰 Precio:</strong>
+            <span>$${sim.precioVehiculo.toLocaleString()}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>📋 Plan:</strong>
+            <span>${sim.plan.nombre}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>📅 Plazo:</strong>
+            <span>${sim.plan.plazo} meses</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>💵 Cuota Inicial (${sim.plan.cuotaInicial}%):</strong>
+            <span>$${sim.cuotaInicial.toLocaleString(undefined, {maximumFractionDigits: 2})}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>📊 Monto a Financiar:</strong>
+            <span>$${sim.montoFinanciar.toLocaleString(undefined, {maximumFractionDigits: 2})}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>🏦 Total a Pagar:</strong>
+            <span>$${sim.totalAPagar.toLocaleString(undefined, {maximumFractionDigits: 2})}</span>
+        </div>
+        <div class="dato-resumen">
+            <strong>📈 Total Intereses:</strong>
+            <span>$${sim.totalIntereses.toLocaleString(undefined, {maximumFractionDigits: 2})}</span>
+        </div>
+        <div class="cuota-destacada">
+            <p>💳 Cuota Mensual:</p>
+            <div class="monto-cuota">$${sim.cuotaMensual.toLocaleString(undefined, {maximumFractionDigits: 2})}</div>
+        </div>
+        <div class="dato-resumen">
+            <strong>👤 Asesor:</strong>
+            <span>${sim.asesor.nombre}</span>
+        </div>
+    `;
 }
 
-// Validar formulario
-function validarFormulario() {
-    if (!vehiculoSeleccionado) {
-        alert('Por favor selecciona un vehículo');
-        return false;
-    }
+// ========== TABLA DE AMORTIZACIÓN ==========
+function generarTablaAmortizacion(capital, cuota, tasaMensual, numeroCuotas) {
+    tbodyAmortizacion.innerHTML = '';
+    let saldo = capital;
 
-    const entrada = document.getElementById('entrada').value;
-    if (!entrada || entrada <= 0) {
-        alert('Por favor ingresa el monto de entrada');
-        return false;
-    }
+    for (let i = 1; i <= numeroCuotas; i++) {
+        const interes = saldo * tasaMensual;
+        const capitalPagado = cuota - interes;
+        saldo -= capitalPagado;
 
-    const plazo = document.getElementById('select-plazo').value;
-    if (!plazo) {
-        alert('Por favor selecciona un plazo');
-        return false;
-    }
+        // Ajuste en la última cuota por redondeo
+        if (i === numeroCuotas && Math.abs(saldo) < 1) {
+            saldo = 0;
+        }
 
-    const asesor = document.getElementById('select-asesor').value;
-    if (!asesor) {
-        alert('Por favor selecciona un asesor');
-        return false;
+        const fila = document.createElement('tr');
+        fila.innerHTML = `
+            <td>${i}</td>
+            <td>$${cuota.toLocaleString(undefined, {maximumFractionDigits: 2})}</td>
+            <td>$${capitalPagado.toLocaleString(undefined, {maximumFractionDigits: 2})}</td>
+            <td>$${interes.toLocaleString(undefined, {maximumFractionDigits: 2})}</td>
+            <td>$${Math.max(0, saldo).toLocaleString(undefined, {maximumFractionDigits: 2})}</td>
+        `;
+        tbodyAmortizacion.appendChild(fila);
     }
-
-    const nombreCliente = document.getElementById('cliente-nombre').value.trim();
-    if (!nombreCliente) {
-        alert('Por favor ingresa el nombre del cliente');
-        return false;
-    }
-
-    const emailCliente = document.getElementById('cliente-email').value.trim();
-    if (!emailCliente || !validarEmail(emailCliente)) {
-        alert('Por favor ingresa un email válido');
-        return false;
-    }
-
-    return true;
 }
 
-// Validar email
-function validarEmail(email) {
-    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
-}
-
-// Guardar cotización
+// ========== GUARDAR COTIZACIÓN ==========
 function guardarCotizacion() {
     if (!simulacionActual) {
-        alert('Primero debes generar una simulación');
+        mostrarToast('No hay simulación para guardar', 'error');
         return;
     }
 
-    const asesorId = parseInt(document.getElementById('select-asesor').value);
-    const asesor = integrantes.find(a => a.id === asesorId);
+    // Obtener cotizaciones existentes
+    let cotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
 
+    // Crear objeto de cotización
     const cotizacion = {
-        asesorId: asesor.id,
-        asesorNombre: asesor.nombre,
-        vehiculoId: vehiculoSeleccionado.id,
-        vehiculoMarca: vehiculoSeleccionado.marca,
-        vehiculoModelo: vehiculoSeleccionado.modelo,
-        vehiculoPrecio: simulacionActual.precio,
-        planId: simulacionActual.plazo,
-        planNombre: `${simulacionActual.plazo} meses`,
-        planMeses: simulacionActual.plazo,
-        entrada: simulacionActual.entrada,
+        id: Date.now(),
+        vehiculoId: simulacionActual.vehiculo.id,
+        vehiculoNombre: `${simulacionActual.vehiculo.marca} ${simulacionActual.vehiculo.modelo}`,
+        planId: simulacionActual.plan.id,
+        planNombre: simulacionActual.plan.nombre,
+        asesorId: simulacionActual.asesor.id,
+        asesorNombre: simulacionActual.asesor.nombre,
+        precioVehiculo: simulacionActual.precioVehiculo,
+        cuotaInicial: simulacionActual.cuotaInicial,
         montoFinanciar: simulacionActual.montoFinanciar,
-        montoTotal: simulacionActual.totalPagar,
         cuotaMensual: simulacionActual.cuotaMensual,
-        clienteNombre: document.getElementById('cliente-nombre').value.trim(),
-        clienteEmail: document.getElementById('cliente-email').value.trim()
+        plazo: simulacionActual.plan.plazo,
+        tasaInteres: simulacionActual.plan.tasaInteres,
+        totalAPagar: simulacionActual.totalAPagar,
+        totalIntereses: simulacionActual.totalIntereses,
+        fecha: simulacionActual.fecha
     };
 
-    gestorCotizaciones.guardarCotizacion(cotizacion);
+    // Guardar en localStorage
+    cotizaciones.push(cotizacion);
+    localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
 
-    // Mostrar mensaje de confirmación
-    const mensaje = document.getElementById('mensaje-confirmacion');
-    mensaje.style.display = 'block';
-    mensaje.scrollIntoView({ behavior: 'smooth', block: 'center' });
-
-    // Limpiar formulario después de 3 segundos
-    setTimeout(() => {
-        limpiarFormulario();
-        mensaje.style.display = 'none';
-    }, 3000);
+    mostrarToast('¡Cotización guardada exitosamente!', 'success');
 }
 
-// Limpiar formulario
-function limpiarFormulario() {
-    document.getElementById('select-vehiculo').value = '';
-    document.getElementById('entrada').value = '';
-    document.getElementById('select-plazo').value = '';
-    document.getElementById('select-asesor').value = '';
-    document.getElementById('cliente-nombre').value = '';
-    document.getElementById('cliente-email').value = '';
-    document.getElementById('vehiculo-info').style.display = 'none';
-    document.getElementById('resultados').style.display = 'none';
-    vehiculoSeleccionado = null;
-    simulacionActual = null;
+// ========== NOTIFICACIONES TOAST ==========
+function mostrarToast(mensaje, tipo = 'success') {
+    const container = document.getElementById('toast-container');
+    
+    const toast = document.createElement('div');
+    toast.classList.add('toast', tipo);
+    toast.textContent = mensaje;
+    
+    container.appendChild(toast);
+    
+    setTimeout(() => toast.classList.add('show'), 50);
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
 }
