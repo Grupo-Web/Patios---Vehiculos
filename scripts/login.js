@@ -45,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 setTimeout(() => {
 
-                    window.location.href = 'dashboard.html';
+                    window.location.href = 'planes_financieros.html';
 s
                 }, 1000);
 
