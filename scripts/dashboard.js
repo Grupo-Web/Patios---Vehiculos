@@ -1,322 +1,420 @@
-// scripts/dashboard.js
-import { gestorCotizaciones } from './cotizaciones.js';
+import { autos } from '../data/catalogo_autos.js';
+import { integrantes } from '../data/db_asesores.js';
+import { planes } from '../data/db_planes.js';
 
-// Variables globales para los gráficos
-let chartAsesores, chartVehiculos, chartPlanes, chartMensual;
+// ========== VARIABLES GLOBALES ==========
+let cotizaciones = [];
+let charts = {};
 
-// Colores del tema Pride Autosales
-const coloresTema = {
-    rojo: '#ef3620',
-    negro: '#000000',
-    gris: '#666666',
-    blanco: '#ffffff'
-};
-
-const coloresGraficos = [
-    '#ef3620', '#ff6b54', '#ff9580', '#000000', '#333333',
-    '#666666', '#999999', '#ff4444', '#cc0000', '#880000'
-];
-
-// Inicialización
+// ========== INICIALIZACIÓN ==========
 document.addEventListener('DOMContentLoaded', () => {
-    cargarDashboard();
-    configurarEventos();
+    cargarCotizaciones();
+    actualizarDashboard();
+    
+    // Event listeners
+    document.getElementById('btn-generar-prueba').addEventListener('click', generarDatosPrueba);
+    document.getElementById('btn-exportar').addEventListener('click', exportarCSV);
+    document.getElementById('btn-limpiar').addEventListener('click', limpiarDatos);
 });
 
-// Cargar todos los datos del dashboard
-function cargarDashboard() {
-    const estadisticas = gestorCotizaciones.obtenerEstadisticas();
-    
-    actualizarTarjetasResumen(estadisticas);
-    crearGraficoAsesores(estadisticas.porAsesor);
-    crearGraficoVehiculos(estadisticas.porVehiculo);
-    crearGraficoPlanes(estadisticas.porPlan);
-    crearGraficoMensual(estadisticas.porMes);
-    actualizarTablaRanking(estadisticas.porAsesor);
+// ========== CARGAR COTIZACIONES ==========
+function cargarCotizaciones() {
+    cotizaciones = JSON.parse(localStorage.getItem('cotizaciones')) || [];
 }
 
-// Actualizar tarjetas de resumen
-function actualizarTarjetasResumen(stats) {
-    document.getElementById('total-cotizaciones').textContent = stats.total;
-    document.getElementById('monto-total').textContent = 
-        `$${stats.montoTotal.toLocaleString('es-EC', { maximumFractionDigits: 0 })}`;
+// ========== ACTUALIZAR TODO EL DASHBOARD ==========
+function actualizarDashboard() {
+    actualizarKPIs();
+    actualizarGraficos();
+    actualizarTablaRanking();
+}
+
+// ========== ACTUALIZAR KPIs ==========
+function actualizarKPIs() {
+    const totalCotizaciones = cotizaciones.length;
+    const montoTotal = cotizaciones.reduce((sum, c) => sum + c.totalAPagar, 0);
     
     // Top asesor
-    const asesores = Object.entries(stats.porAsesor);
-    if (asesores.length > 0) {
-        const topAsesor = asesores.reduce((max, current) => 
-            current[1] > max[1] ? current : max
-        );
-        document.getElementById('top-asesor').textContent = topAsesor[0];
-    }
+    const cotizacionesPorAsesor = {};
+    cotizaciones.forEach(c => {
+        cotizacionesPorAsesor[c.asesorNombre] = (cotizacionesPorAsesor[c.asesorNombre] || 0) + 1;
+    });
+    const topAsesor = Object.entries(cotizacionesPorAsesor)
+        .sort((a, b) => b[1] - a[1])[0];
     
     // Top vehículo
-    const vehiculos = Object.entries(stats.porVehiculo);
-    if (vehiculos.length > 0) {
-        const topVehiculo = vehiculos.reduce((max, current) => 
-            current[1] > max[1] ? current : max
-        );
-        document.getElementById('top-vehiculo').textContent = topVehiculo[0];
-    }
+    const cotizacionesPorVehiculo = {};
+    cotizaciones.forEach(c => {
+        cotizacionesPorVehiculo[c.vehiculoNombre] = (cotizacionesPorVehiculo[c.vehiculoNombre] || 0) + 1;
+    });
+    const topVehiculo = Object.entries(cotizacionesPorVehiculo)
+        .sort((a, b) => b[1] - a[1])[0];
+    
+    // Actualizar DOM
+    document.getElementById('total-cotizaciones').textContent = totalCotizaciones;
+    document.getElementById('monto-total').textContent = `$${montoTotal.toLocaleString(undefined, {maximumFractionDigits: 0})}`;
+    document.getElementById('top-asesor').textContent = topAsesor ? topAsesor[0] : '-';
+    document.getElementById('top-vehiculo').textContent = topVehiculo ? topVehiculo[0] : '-';
 }
 
-// Gráfico de cotizaciones por asesor
-function crearGraficoAsesores(datosAsesores) {
+// ========== ACTUALIZAR GRÁFICOS ==========
+function actualizarGraficos() {
+    generarGraficoAsesores();
+    generarGraficoVehiculos();
+    generarGraficoPlanes();
+    generarGraficoMensual();
+}
+
+function generarGraficoAsesores() {
     const ctx = document.getElementById('chart-asesores');
+    if (!ctx) return;
     
-    if (chartAsesores) {
-        chartAsesores.destroy();
-    }
-
-    const labels = Object.keys(datosAsesores);
-    const datos = Object.values(datosAsesores);
-
-    chartAsesores = new Chart(ctx, {
+    // Destruir gráfico anterior si existe
+    if (charts.asesores) charts.asesores.destroy();
+    
+    // Contar cotizaciones por asesor
+    const datos = {};
+    cotizaciones.forEach(c => {
+        datos[c.asesorNombre] = (datos[c.asesorNombre] || 0) + 1;
+    });
+    
+    const labels = Object.keys(datos);
+    const values = Object.values(datos);
+    
+    charts.asesores = new Chart(ctx, {
         type: 'bar',
         data: {
             labels: labels,
             datasets: [{
                 label: 'Cotizaciones',
-                data: datos,
-                backgroundColor: coloresGraficos.slice(0, labels.length),
-                borderColor: coloresTema.negro,
-                borderWidth: 1
+                data: values,
+                backgroundColor: 'rgba(239, 54, 32, 0.8)',
+                borderColor: 'rgba(220, 46, 3, 1)',
+                borderWidth: 2
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
-                legend: {
-                    display: false
-                },
-                title: {
-                    display: false
-                }
+                legend: { display: false }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1
-                    }
-                }
+                y: { beginAtZero: true }
             }
         }
     });
 }
 
-// Gráfico de vehículos más cotizados
-function crearGraficoVehiculos(datosVehiculos) {
+function generarGraficoVehiculos() {
     const ctx = document.getElementById('chart-vehiculos');
+    if (!ctx) return;
     
-    if (chartVehiculos) {
-        chartVehiculos.destroy();
-    }
-
-    const labels = Object.keys(datosVehiculos);
-    const datos = Object.values(datosVehiculos);
-
-    chartVehiculos = new Chart(ctx, {
+    if (charts.vehiculos) charts.vehiculos.destroy();
+    
+    const datos = {};
+    cotizaciones.forEach(c => {
+        datos[c.vehiculoNombre] = (datos[c.vehiculoNombre] || 0) + 1;
+    });
+    
+    const labels = Object.keys(datos);
+    const values = Object.values(datos);
+    
+    charts.vehiculos = new Chart(ctx, {
         type: 'doughnut',
         data: {
             labels: labels,
             datasets: [{
-                data: datos,
-                backgroundColor: coloresGraficos.slice(0, labels.length),
-                borderColor: coloresTema.blanco,
-                borderWidth: 2
+                data: values,
+                backgroundColor: [
+                    'rgba(239, 54, 32, 0.8)',
+                    'rgba(220, 46, 3, 0.8)',
+                    'rgba(200, 40, 3, 0.8)',
+                    'rgba(180, 35, 3, 0.8)',
+                    'rgba(160, 30, 3, 0.8)',
+                    'rgba(140, 25, 3, 0.8)'
+                ]
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        font: {
-                            size: 11
-                        }
-                    }
-                }
+                legend: { position: 'bottom' }
             }
         }
     });
 }
 
-// Gráfico de planes de financiamiento
-function crearGraficoPlanes(datosPlanes) {
+function generarGraficoPlanes() {
     const ctx = document.getElementById('chart-planes');
+    if (!ctx) return;
     
-    if (chartPlanes) {
-        chartPlanes.destroy();
-    }
-
-    const labels = Object.keys(datosPlanes);
-    const datos = Object.values(datosPlanes);
-
-    chartPlanes = new Chart(ctx, {
+    if (charts.planes) charts.planes.destroy();
+    
+    const datos = {};
+    cotizaciones.forEach(c => {
+        datos[c.planNombre] = (datos[c.planNombre] || 0) + 1;
+    });
+    
+    const labels = Object.keys(datos);
+    const values = Object.values(datos);
+    
+    charts.planes = new Chart(ctx, {
         type: 'pie',
         data: {
             labels: labels,
             datasets: [{
-                data: datos,
-                backgroundColor: coloresGraficos.slice(0, labels.length),
-                borderColor: coloresTema.blanco,
-                borderWidth: 2
+                data: values,
+                backgroundColor: [
+                    'rgba(239, 54, 32, 0.8)',
+                    'rgba(220, 46, 3, 0.8)',
+                    'rgba(200, 40, 3, 0.8)'
+                ]
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
-                legend: {
-                    position: 'right',
-                    labels: {
-                        font: {
-                            size: 11
-                        }
-                    }
-                }
+                legend: { position: 'bottom' }
             }
         }
     });
 }
 
-// Gráfico de evolución mensual
-function crearGraficoMensual(datosMensual) {
+function generarGraficoMensual() {
     const ctx = document.getElementById('chart-mensual');
+    if (!ctx) return;
     
-    if (chartMensual) {
-        chartMensual.destroy();
-    }
-
-    const labels = Object.keys(datosMensual);
-    const datos = Object.values(datosMensual);
-
-    chartMensual = new Chart(ctx, {
+    if (charts.mensual) charts.mensual.destroy();
+    
+    // Agrupar por mes
+    const porMes = {};
+    cotizaciones.forEach(c => {
+        const fecha = new Date(c.fecha);
+        const mes = `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, '0')}`;
+        porMes[mes] = (porMes[mes] || 0) + 1;
+    });
+    
+    const labels = Object.keys(porMes).sort();
+    const values = labels.map(l => porMes[l]);
+    
+    charts.mensual = new Chart(ctx, {
         type: 'line',
         data: {
             labels: labels,
             datasets: [{
-                label: 'Cotizaciones',
-                data: datos,
-                borderColor: coloresTema.rojo,
-                backgroundColor: 'rgba(239, 54, 32, 0.1)',
-                borderWidth: 3,
-                fill: true,
-                tension: 0.4
+                label: 'Cotizaciones por Mes',
+                data: values,
+                borderColor: 'rgba(220, 46, 3, 1)',
+                backgroundColor: 'rgba(239, 54, 32, 0.2)',
+                tension: 0.4,
+                fill: true
             }]
         },
         options: {
             responsive: true,
             maintainAspectRatio: true,
             plugins: {
-                legend: {
-                    display: true
-                }
+                legend: { display: true }
             },
             scales: {
-                y: {
-                    beginAtZero: true,
-                    ticks: {
-                        stepSize: 1
-                    }
-                }
+                y: { beginAtZero: true }
             }
         }
     });
 }
 
-// Actualizar tabla de ranking
-function actualizarTablaRanking(datosAsesores) {
+// ========== TABLA DE RANKING ==========
+function actualizarTablaRanking() {
     const tbody = document.getElementById('tbody-asesores');
+    if (!tbody) return;
+    
     tbody.innerHTML = '';
-
-    const asesoresOrdenados = Object.entries(datosAsesores)
+    
+    // Contar cotizaciones por asesor
+    const rankingData = {};
+    cotizaciones.forEach(c => {
+        if (!rankingData[c.asesorNombre]) {
+            rankingData[c.asesorNombre] = 0;
+        }
+        rankingData[c.asesorNombre]++;
+    });
+    
+    // Convertir a array y ordenar
+    const ranking = Object.entries(rankingData)
         .sort((a, b) => b[1] - a[1]);
-
-    asesoresOrdenados.forEach(([nombre, cantidad], index) => {
+    
+    // Generar filas
+    ranking.forEach((item, index) => {
         const fila = document.createElement('tr');
         
-        let badge = '';
         let badgeClass = 'badge-normal';
+        let posicion = `#${index + 1}`;
         
         if (index === 0) {
-            badge = '🥇 1°';
             badgeClass = 'badge-oro';
+            posicion = '🥇';
         } else if (index === 1) {
-            badge = '🥈 2°';
             badgeClass = 'badge-plata';
+            posicion = '🥈';
         } else if (index === 2) {
-            badge = '🥉 3°';
             badgeClass = 'badge-bronce';
-        } else {
-            badge = `${index + 1}°`;
+            posicion = '🥉';
         }
-
+        
         fila.innerHTML = `
             <td><strong>${index + 1}</strong></td>
-            <td>${nombre}</td>
-            <td><strong>${cantidad}</strong></td>
-            <td><span class="badge-ranking ${badgeClass}">${badge}</span></td>
+            <td>${item[0]}</td>
+            <td><strong>${item[1]}</strong></td>
+            <td><span class="badge-ranking ${badgeClass}">${posicion}</span></td>
         `;
         
         tbody.appendChild(fila);
     });
 }
 
-// Configurar eventos de los botones
-function configurarEventos() {
-    document.getElementById('btn-generar-prueba').addEventListener('click', () => {
-        if (confirm('¿Generar 50 cotizaciones de prueba? Esto agregará datos ficticios.')) {
-            gestorCotizaciones.generarDatosPrueba();
-            cargarDashboard();
-            alert('✅ Datos de prueba generados exitosamente');
-        }
-    });
-
-    document.getElementById('btn-limpiar').addEventListener('click', () => {
-        if (confirm('⚠️ ¿Está seguro de eliminar TODAS las cotizaciones? Esta acción no se puede deshacer.')) {
-            gestorCotizaciones.limpiarTodo();
-            cargarDashboard();
-            alert('✅ Todos los datos han sido eliminados');
-        }
-    });
-
-    document.getElementById('btn-exportar').addEventListener('click', () => {
-        exportarCSV();
-    });
+// ========== GENERAR DATOS DE PRUEBA ==========
+function generarDatosPrueba() {
+    const confirmar = confirm('¿Deseas generar 50 cotizaciones de prueba? Esto se agregará a los datos existentes.');
+    if (!confirmar) return;
+    
+    const nuevasCotizaciones = [];
+    
+    for (let i = 0; i < 50; i++) {
+        const vehiculo = autos[Math.floor(Math.random() * autos.length)];
+        const plan = planes[Math.floor(Math.random() * planes.length)];
+        const asesor = integrantes[Math.floor(Math.random() * integrantes.length)];
+        
+        // Cálculos financieros
+        const precioVehiculo = vehiculo.precio;
+        const cuotaInicial = precioVehiculo * (plan.cuotaInicial / 100);
+        const montoFinanciar = precioVehiculo - cuotaInicial;
+        const tasaMensual = plan.tasaInteres / 100 / 12;
+        const numeroCuotas = plan.plazo;
+        
+        const cuotaMensual = montoFinanciar * 
+            (tasaMensual * Math.pow(1 + tasaMensual, numeroCuotas)) / 
+            (Math.pow(1 + tasaMensual, numeroCuotas) - 1);
+        
+        const totalAPagar = cuotaMensual * numeroCuotas;
+        const totalIntereses = totalAPagar - montoFinanciar;
+        
+        // Fecha aleatoria en los últimos 3 meses
+        const fecha = new Date();
+        fecha.setDate(fecha.getDate() - Math.floor(Math.random() * 90));
+        
+        nuevasCotizaciones.push({
+            id: Date.now() + i,
+            vehiculoId: vehiculo.id,
+            vehiculoNombre: `${vehiculo.marca} ${vehiculo.modelo}`,
+            planId: plan.id,
+            planNombre: plan.nombre,
+            asesorId: asesor.id,
+            asesorNombre: asesor.nombre,
+            precioVehiculo: precioVehiculo,
+            cuotaInicial: cuotaInicial,
+            montoFinanciar: montoFinanciar,
+            cuotaMensual: cuotaMensual,
+            plazo: plan.plazo,
+            tasaInteres: plan.tasaInteres,
+            totalAPagar: totalAPagar,
+            totalIntereses: totalIntereses,
+            fecha: fecha.toISOString()
+        });
+    }
+    
+    // Guardar en localStorage
+    cotizaciones = [...cotizaciones, ...nuevasCotizaciones];
+    localStorage.setItem('cotizaciones', JSON.stringify(cotizaciones));
+    
+    // Actualizar dashboard
+    actualizarDashboard();
+    
+    mostrarToast('✅ 50 cotizaciones de prueba generadas exitosamente');
 }
 
-// Exportar datos a CSV
+// ========== EXPORTAR A CSV ==========
 function exportarCSV() {
-    const cotizaciones = gestorCotizaciones.obtenerTodas();
-    
     if (cotizaciones.length === 0) {
-        alert('No hay datos para exportar');
+        mostrarToast('❌ No hay cotizaciones para exportar', 'error');
         return;
     }
-
-    let csv = 'ID,Fecha,Asesor,Vehículo,Plan,Entrada,Monto Financiar,Monto Total,Cliente,Email\n';
     
+    // Encabezados
+    let csv = 'ID,Fecha,Vehículo,Plan,Asesor,Precio,Cuota Inicial,Monto Financiar,Cuota Mensual,Plazo,Tasa,Total a Pagar,Total Intereses\n';
+    
+    // Datos
     cotizaciones.forEach(c => {
-        const fecha = new Date(c.fecha).toLocaleDateString('es-EC');
-        csv += `${c.id},"${fecha}","${c.asesorNombre}","${c.vehiculoMarca} ${c.vehiculoModelo}","${c.planNombre}",${c.entrada},${c.montoFinanciar},${c.montoTotal},"${c.clienteNombre}","${c.clienteEmail}"\n`;
+        const fecha = new Date(c.fecha).toLocaleDateString();
+        csv += `${c.id},${fecha},"${c.vehiculoNombre}","${c.planNombre}","${c.asesorNombre}",${c.precioVehiculo},${c.cuotaInicial},${c.montoFinanciar},${c.cuotaMensual},${c.plazo},${c.tasaInteres}%,${c.totalAPagar},${c.totalIntereses}\n`;
     });
-
-    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
     
-    link.setAttribute('href', url);
-    link.setAttribute('download', `cotizaciones_pride_${Date.now()}.csv`);
-    link.style.visibility = 'hidden';
+    // Descargar
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `cotizaciones_${Date.now()}.csv`;
+    a.click();
+    window.URL.revokeObjectURL(url);
     
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    alert('✅ Archivo CSV descargado exitosamente');
+    mostrarToast('✅ Archivo CSV descargado exitosamente');
 }
+
+// ========== LIMPIAR DATOS ==========
+function limpiarDatos() {
+    const confirmar = confirm('⚠️ ¿Estás seguro de eliminar TODAS las cotizaciones? Esta acción no se puede deshacer.');
+    if (!confirmar) return;
+    
+    localStorage.removeItem('cotizaciones');
+    cotizaciones = [];
+    
+    actualizarDashboard();
+    
+    mostrarToast('🗑️ Todas las cotizaciones han sido eliminadas');
+}
+
+// ========== NOTIFICACIONES TOAST ==========
+function mostrarToast(mensaje, tipo = 'success') {
+    const toastHTML = `
+        <div style="
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: ${tipo === 'error' ? 'linear-gradient(145deg, #f44336, #ef5350)' : 'linear-gradient(145deg, #4caf50, #66bb6a)'};
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            z-index: 9999;
+            font-family: ToyotaType;
+            animation: slideIn 0.4s ease;
+        ">
+            ${mensaje}
+        </div>
+    `;
+    
+    const toast = document.createRange().createContextualFragment(toastHTML).firstElementChild;
+    document.body.appendChild(toast);
+    
+    setTimeout(() => {
+        toast.style.animation = 'slideOut 0.4s ease';
+        setTimeout(() => toast.remove(), 400);
+    }, 3000);
+}
+
+// Agregar estilos de animación
+const style = document.createElement('style');
+style.textContent = `
+    @keyframes slideIn {
+        from { transform: translateX(100%); opacity: 0; }
+        to { transform: translateX(0); opacity: 1; }
+    }
+    @keyframes slideOut {
+        from { transform: translateX(0); opacity: 1; }
+        to { transform: translateX(100%); opacity: 0; }
+    }
+`;
+document.head.appendChild(style);
