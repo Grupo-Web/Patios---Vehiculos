@@ -181,3 +181,25 @@ body {
     transform: translateX(0);
 }
 
+footer {
+    background-color: #000000;
+    color: white;
+    text-align: center;
+    padding: 25px;
+    margin-top: 40px;
+}
+
+.contenedorRedes{
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.logosRedes{
+    width: 22px;
+    filter: drop-shadow(5px 5px 10px rgb(100, 0, 0));
+    display: flex;
+    justify-items: center;
+}
+
