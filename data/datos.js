@@ -3,7 +3,7 @@ const users = [
         id: 1,
         username: "Admin",
         password: "Car123Password",
-        role: "user"
+        role: "admin"
     },
     {
         id: 2,
@@ -21,7 +21,7 @@ const users = [
         id: 4,
         username: "invitado",
         password: "guest",
-        role: "guest"
+        role: "user"
     }
 ];
 
