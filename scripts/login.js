@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 localStorage.setItem('currentUser', JSON.stringify(foundUser));
                 
                 setTimeout(() => {
-                    window.location.href = '../src/planes_financieros.html';
+                    window.location.href = '../src/cotizacionVehiculo.html';
                 }, 700);
 
             } else {
