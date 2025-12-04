@@ -1,4 +1,4 @@
-import { autos } from "../data/catalogo_autos.js"; // AJUSTA LA RUTA SI FUERA NECESARIO
+import { autos } from "../data/catalogo_autos.js"; // AJUSTA LA RUTA SI ES NECESARIO
 
 // Obtener ID desde la URL
 const params = new URLSearchParams(window.location.search);
@@ -11,14 +11,39 @@ if (!auto) {
     document.body.innerHTML = "<h2>Auto no encontrado</h2>";
 } else {
 
-    // Imagen principal
-    document.getElementById("auto-imagen").src = auto.imagen;
+    // ============================
+    // IMAGEN PRINCIPAL
+    // ============================
+    const imagenPrincipal = document.getElementById("auto-imagen");
+    imagenPrincipal.src = auto.imagen;
 
-    // Título grande
+    // ============================
+    // MINIATURAS — CAMBIAR IMAGEN
+    // ============================
+
+    const miniaturas = document.querySelectorAll(".miniatura");
+
+    if (auto.imagenes && auto.imagenes.length >= 4) {
+
+        miniaturas.forEach((thumb, index) => {
+            thumb.src = auto.imagenes[index];
+
+            thumb.addEventListener("click", () => {
+                imagenPrincipal.src = auto.imagenes[index];
+            });
+        });
+
+    } else {
+        console.warn(`El vehículo con ID ${auto.id} no tiene suficientes miniaturas.`);
+    }
+
+    // ============================
+    // INFORMACIÓN DEL VEHÍCULO
+    // ============================
+
     document.getElementById("auto-nombre").textContent =
         `${auto.marca} ${auto.modelo} ${auto.año}`;
 
-    // Datos generales
     document.getElementById("auto-marca").textContent = auto.marca;
     document.getElementById("auto-modelo").textContent = auto.modelo;
     document.getElementById("auto-anio").textContent = auto.año;
@@ -28,7 +53,10 @@ if (!auto) {
     document.getElementById("auto-precio").textContent =
         auto.precio.toLocaleString();
 
-    // Colores disponibles
+    // ============================
+    // COLORES DISPONIBLES
+    // ============================
+
     const coloresContainer = document.getElementById("auto-colores");
     coloresContainer.innerHTML = "";
 
@@ -39,7 +67,9 @@ if (!auto) {
         coloresContainer.appendChild(tag);
     });
 
-    /* Notificacion */
+    // ============================
+    // SISTEMA DE NOTIFICACIONES
+    // ============================
 
     function showToast(mensaje) {
         const container = document.getElementById("toast-container");
@@ -60,23 +90,25 @@ if (!auto) {
         }, 3000);
     }
 
-    /*  BOTONES Y ACCIONES*/
+    // ============================
+    // BOTONES Y ACCIONES
+    // ============================
 
     // Agendar Test Drive
     const btnTestDrive = document.getElementById("btn-testdrive");
     if (btnTestDrive) {
         btnTestDrive.addEventListener("click", () => {
-            showToast(`Test Drive solicitado para el ${auto.marca} ${auto.modelo} `);
+            showToast(`Test Drive solicitado para el ${auto.marca} ${auto.modelo}.`);
         });
     }
 
-    // Actualizar enlace de cotización con el ID del vehículo
+    // Actualizar enlace de cotización con ID del auto
     const btnCotizarLink = document.getElementById("btn-cotizar-link");
     if (btnCotizarLink) {
         btnCotizarLink.href = `cotizacion.html?id=${auto.id}`;
     }
 
-    // Guardar en Favoritos
+    // Guardar en favoritos
     const btnFav = document.getElementById("btn-fav");
     if (btnFav) {
         btnFav.addEventListener("click", () => {
@@ -87,37 +119,10 @@ if (!auto) {
                 favoritos.push(auto.id);
                 localStorage.setItem("favoritos", JSON.stringify(favoritos));
 
-                showToast("Añadido a favoritos");
+                showToast("Añadido a favoritos.");
             } else {
                 showToast("Este auto ya está en favoritos.");
             }
         });
     }
-
-    // Comparar – (tu HTML todavía NO tiene este botón)
-    const btnComparar = document.getElementById("btn-comparar");
-    if (btnComparar) {
-        btnComparar.addEventListener("click", () => {
-
-            let comparar = JSON.parse(localStorage.getItem("comparar")) || [];
-
-            if (!comparar.includes(auto.id)) {
-                comparar.push(auto.id);
-                localStorage.setItem("comparar", JSON.stringify(comparar));
-
-                showToast("Vehículo añadido para comparar.");
-            } else {
-                showToast("Este auto ya está en la lista de comparación.");
-            }
-        });
-    }
-
-    // Comprar ahora – (tu HTML tampoco tiene este botón)
-    const btnComprar = document.getElementById("btn-comprar");
-    if (btnComprar) {
-        btnComprar.addEventListener("click", () => {
-            showToast(`Iniciando proceso de compra de ${auto.marca} ${auto.modelo}`);
-        });
-    }
 }
-
