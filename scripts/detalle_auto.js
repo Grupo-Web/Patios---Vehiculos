@@ -1,4 +1,4 @@
-import { autos } from "../data/catalogo_autos.js"; // AJUSTA LA RUTA SI FUERA NECESARIO
+import { autos } from "../data/datos.js"; // AJUSTA LA RUTA SI FUERA NECESARIO
 
 // Obtener ID desde la URL
 const params = new URLSearchParams(window.location.search);

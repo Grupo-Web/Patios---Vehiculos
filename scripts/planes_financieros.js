@@ -1,4 +1,4 @@
-import { planes } from '../data/db_planes.js';
+import { planes } from '../data/datos.js';
 
 const contenedorPlanes = document.querySelector('.contenedor-planes');
 

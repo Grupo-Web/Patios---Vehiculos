@@ -1,6 +1,6 @@
-import { autos } from '../data/catalogo_autos.js';
+import { autos } from '../data/datos.js';
 import { integrantes } from '../data/db_asesores.js';
-import { planes } from '../data/db_planes.js';
+import { planes } from '../data/datos.js';
 
 const selectVehiculo = document.getElementById('select-vehiculo');
 const selectPlan = document.getElementById('select-plan');

@@ -1,5 +1,5 @@
 
-import users from '../data/cuentas.js';
+import users from '../data/datos.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     const form = document.querySelector('.login form');
