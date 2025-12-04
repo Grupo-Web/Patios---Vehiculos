@@ -39,7 +39,7 @@ function cargarPlanes(arrayPlanes, contenedor) {
 
         const btnSimular = document.createElement('a');
         btnSimular.classList.add('btn-simular-plan');
-        btnSimular.href = 'simulador.html';
+        btnSimular.href = 'cotizacionVehiculo.html';
         btnSimular.textContent = 'Simular con este plan';
 
         tarjeta.appendChild(icono);

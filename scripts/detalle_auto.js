@@ -73,7 +73,7 @@ if (!auto) {
     // Actualizar enlace de cotización con el ID del vehículo
     const btnCotizarLink = document.getElementById("btn-cotizar-link");
     if (btnCotizarLink) {
-        btnCotizarLink.href = `cotizacion.html?id=${auto.id}`;
+        btnCotizarLink.href = `login.html?id=${auto.id}`;
     }
 
     // Guardar en Favoritos

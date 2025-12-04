@@ -1,7 +1,9 @@
 import { autos } from "../data/catalogo_autos.js";
 
 // Elementos del DOM
+const imagenContainer = document.querySelector(".imagen-container");
 const selectVehiculo = document.getElementById("select-vehiculo");
+const autoImagen = document.getElementById("auto-imagen");
 const inputMarca = document.getElementById("input-marca");
 const inputModelo = document.getElementById("input-modelo");
 const inputAnio = document.getElementById("input-anio");
@@ -13,11 +15,9 @@ const costoTramites = document.getElementById("costo-tramites");
 const costoAccesorios = document.getElementById("costo-accesorios");
 const subtotalAdicionales = document.getElementById("subtotal-adicionales");
 const valorTotalContado = document.getElementById("valor-total-contado");
-const btnGuardarCotizacion = document.getElementById("btn-guardar-cotizacion");
-const toastContainer = document.getElementById("toast-cotizacion");
 
-const isAuthenticated = false;
-
+imagenContainer.style.display = "none";
+autoImagen.style.display = "none";
 // Costos adicionales base 
 const costosBase = {
     matriculacion: 450,
@@ -64,15 +64,20 @@ function cargarVehiculos() {
 function actualizarVehiculo(vehiculoId) {
     const vehiculo = autos.find(a => a.id === parseInt(vehiculoId));
     
-    if (!vehiculo) {
-        // Limpiar campos si no hay vehículo seleccionado
-        inputMarca.value = "";
-        inputModelo.value = "";
-        inputAnio.value = "";
-        inputPrecioBase.value = "";
-        precioVehiculo.textContent = "$0,00";
-        actualizarCostos(0);
-        return;
+   if (!vehiculo) {
+    inputMarca.value = "";
+    inputModelo.value = "";
+    inputAnio.value = "";
+    inputPrecioBase.value = "";
+    precioVehiculo.textContent = "$0,00";
+    
+    autoImagen.src = "";
+    autoImagen.style.display = "none";
+
+    imagenContainer.style.display = "none";
+
+    actualizarCostos(0);
+    return;
     }
 
     // Actualizar campos del vehículo
@@ -81,6 +86,19 @@ function actualizarVehiculo(vehiculoId) {
     inputAnio.value = vehiculo.año;
     inputPrecioBase.value = formatearMoneda(vehiculo.precio);
     precioVehiculo.textContent = `$${formatearMoneda(vehiculo.precio)}`;
+
+    // Mostrar imagen del vehículo
+    if (vehiculo.imagen) {
+    autoImagen.src = vehiculo.imagen;
+    autoImagen.style.display = "block";
+
+    imagenContainer.style.display = "flex";
+    }
+
+    else {
+    autoImagen.style.display = "none";
+    imagenContainer.style.display = "none";
+    }
 
     // Calcular y actualizar costos adicionales
     const costos = calcularCostosAdicionales(vehiculo.precio);
@@ -104,7 +122,6 @@ function actualizarCostos(precioBase, costos = null) {
     subtotalAdicionales.textContent = `$${formatearMoneda(subtotal)}`;
 
     // Calcular total al contado (precio base + costos adicionales)
-    // Se asume que el IVA y gastos administrativos ya están incluidos en el precio base
     const total = precioBase + subtotal;
     valorTotalContado.textContent = `$${formatearMoneda(total)}`;
 }
@@ -114,32 +131,6 @@ selectVehiculo.addEventListener('change', (e) => {
     const vehiculoId = e.target.value;
     actualizarVehiculo(vehiculoId);
 });
-
-function mostrarToast(mensaje) {
-    if (!toastContainer) return;
-
-    const toast = document.createElement("div");
-    toast.classList.add("toast-alerta");
-    toast.textContent = mensaje;
-    toastContainer.appendChild(toast);
-
-    requestAnimationFrame(() => toast.classList.add("mostrar"));
-
-    setTimeout(() => {
-        toast.classList.remove("mostrar");
-        setTimeout(() => toast.remove(), 300);
-    }, 3500);
-}
-
-if (btnGuardarCotizacion) {
-    btnGuardarCotizacion.addEventListener("click", () => {
-        if (!isAuthenticated) {
-            mostrarToast("⚠️ Debes iniciar sesión para poder guardar la cotización.");
-            return;
-        }
-
-    });
-}
 
 // Verificar si hay un vehículo en la URL 
 function verificarVehiculoURL() {
@@ -160,4 +151,3 @@ document.addEventListener('DOMContentLoaded', () => {
     cargarVehiculos();
     verificarVehiculoURL();
 });
-

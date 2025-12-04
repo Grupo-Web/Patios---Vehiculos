@@ -6,7 +6,8 @@
     <title>Cotización de Vehículo - Pride Autosales</title>
     <link rel="stylesheet" href="../style/fonts.css">
     <link rel="stylesheet" href="../style/landingPage.css">
-    <link rel="stylesheet" href="../style/cotizacion.css">
+    <link rel="stylesheet" href="../style/cotizacionVehiculo.css">
+    <link rel="stylesheet" href="../style/simulador.css">
 </head>
 <body>
     <header id="encabezado">
@@ -17,8 +18,6 @@
             <a class="enlaces" href="catalogo.html">Catálogo</a>
             <a class="enlaces" href="planes_financieros.html">Planes</a>
             <a class="enlaces" href="asesores.html">Asesores</a>
-            <a class="enlaces" href="simulador.html">Simulador</a>
-            <a class="enlaces" href="cotizacion.html">Cotización</a>
             <a class="enlaces" href="dashboard.html">Dashboard</a>
             <a class="enlaces" href="login.html">Iniciar Sesión</a>
         </nav>
@@ -41,11 +40,15 @@
             </select>
         </div>
 
-        <!-- Sección: Vehículo Seleccionado -->
+               <!-- Sección: Vehículo Seleccionado -->
         <section class="card-vehiculo">
             <div class="card-header">
                 <h2>Vehículo Seleccionado</h2>
             </div>
+            <div class="imagen-container">
+                <img id="auto-imagen" src="" alt="Auto">
+            </div>
+    
             <div class="campos-vehiculo">
                 <div class="campo">
                     <label>Marca</label>
@@ -68,11 +71,9 @@
                 <span>Precio del Vehículo:</span>
                 <span class="valor-precio" id="precio-vehiculo">$0,00</span>
             </div>
-        </section>
 
-        <!-- Sección: Costos Adicionales -->
-        <section class="card-costos">
-            <div class="card-header">
+            <!-- COSTOS ADICIONALES INTEGRADOS -->
+            <div class="card-header" style="margin-top: 30px;">
                 <h2>Costos Adicionales</h2>
             </div>
             <div class="lista-costos">
@@ -97,26 +98,83 @@
                 <span>Subtotal Adicionales:</span>
                 <span class="valor-subtotal" id="subtotal-adicionales">$1.700,00</span>
             </div>
+
+            <!-- TOTAL COMBINADO -->
+            <div class="barra-TotalContado" >
+                <span>Total al contado:</span>
+                <span class="valor-precio" id="valor-total-contado">$0,00</span>
+            </div>
         </section>
 
-        <!-- Sección: Valor Total al Contado -->
-        <section class="card-total">
-            <div class="card-header-total">
-                <h2>$ Valor Total al Contado</h2>
-            </div>
-            <p class="descripcion-total">Precio final incluidos todos los costos</p>
-            <div class="valor-total-grande" id="valor-total-contado">$0,00</div>
-            <p class="nota-total">IVA y gastos administrativos incluidos</p>
-            <button id="btn-guardar-cotizacion" class="btn-guardar-cotizacion">Guardar Cotización</button>
-        </section>
 
-        <!-- Sección: Plan de Financiamiento -->
-        <section class="card-financiamiento">
-            <div class="card-header">
-                <h2>Plan de Financiamiento</h2>
+        <!-- Contenedor: Plan de Financiamiento y Resumen -->
+        <div class="fila-tarjetas">
+            <!-- Sección: Plan de Financiamiento -->
+            <section class="card-financiamiento">
+                <div class="card-header">
+                    <h2>Plan de Financiamiento</h2>
+                </div>
+                <div class="formulario-financiamiento">
+                    <div class="campo-form">
+                        <label for="select-plan">Plan de Financiamiento</label>
+                        <select id="select-plan" class="select-vehiculo" required>
+                            <option value="">-- Elige un plan --</option>
+                        </select>
+                    </div>
+                    <div class="campo-form">
+                        <label for="select-asesor">Asesor Asignado</label>
+                        <select id="select-asesor" class="select-vehiculo" required>
+                            <option value="">-- Selecciona un asesor --</option>
+                        </select>
+                    </div>
+                    <button id="btn-simular" class="btn-simular">Calcular Cuota Mensual</button>
+                </div>
+            </section>
+
+            <!-- Sección: Resumen del Financiamiento -->
+            <section class="resultado-simulador" id="resultado-simulador" style="display: none;">
+                <div class="card-header">
+                    <h2>Resumen del Financiamiento</h2>
+                </div>
+                <div class="resumen-contenido">
+                    <p class="info-inicial">Completa el formulario para ver tu simulación</p>
+                </div>
+            </section>
+        </div>
+
+        <!-- Botón para abrir modal de tabla de amortización -->
+        <button id="btn-ver-amortizacion" class="btn-ver-amortizacion" style="display: none;">
+            Ver Tabla de Amortización
+        </button>
+
+        <!-- Modal de Tabla de Amortización -->
+        <div id="modal-amortizacion" class="modal-overlay">
+            <div class="modal-contenido">
+                <div class="modal-header">
+                    <h2>📅 Tabla de Amortización</h2>
+                    <button id="btn-cerrar-modal" class="btn-cerrar-modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="tabla-scroll">
+                        <table class="tabla-amortizacion">
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Cuota Mensual</th>
+                                    <th>Capital</th>
+                                    <th>Interés</th>
+                                    <th>Saldo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tbody-amortizacion">
+                                <!-- Se llena dinámicamente -->
+                            </tbody>
+                        </table>
+                    </div>
+                    <button id="btn-guardar-simulacion" class="btn-guardar">💾 Guardar Cotización</button>
+                </div>
             </div>
-            <a href="planes_financieros.html" class="btn-financiamiento">Ver Opciones de Financiamiento</a>
-        </section>
+        </div>
     </main>
 
     <footer class="piePagina">
@@ -146,7 +204,8 @@
         <h3 class="contenidoPie">Copyright © 2024 Pride Autosales - Todos los derechos reservados. Términos y Condiciones</h3>
     </footer>
 
-    <script type="module" src="../scripts/cotizacion.js"></script>
+    <script type="module" src="../scripts/cotizacionVehiculo.js"></script>
+    <script type="module" src="../scripts/simulador.js"></script>
 </body>
 </html>
 
