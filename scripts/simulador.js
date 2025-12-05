@@ -1,7 +1,8 @@
-import { autos } from '../data/catalogo_autos.js';
+import { autos } from '../data/datos.js';
 import { integrantes } from '../data/db_asesores.js';
-import { planes } from '../data/db_planes.js';
+import { planes } from '../data/datos.js';
 
+// Elementos del DOM - usar select-vehiculo existente de cotizacion.html
 const selectVehiculo = document.getElementById('select-vehiculo');
 const selectPlan = document.getElementById('select-plan');
 const selectAsesor = document.getElementById('select-asesor');
@@ -9,21 +10,36 @@ const btnSimular = document.getElementById('btn-simular');
 const resultadoSimulador = document.getElementById('resultado-simulador');
 const seccionAmortizacion = document.getElementById('seccion-amortizacion');
 const tbodyAmortizacion = document.getElementById('tbody-amortizacion');
-const btnGuardar = document.getElementById('btn-guardar-cotizacion');
+const btnGuardar = document.getElementById('btn-guardar-simulacion');
 
 // Variables globales
 let simulacionActual = null;
 
+// Hacer la variable accesible globalmente para cotizacion.js
+window.simulacionActual = null;
+
 document.addEventListener('DOMContentLoaded', () => {
-    cargarVehiculos();
+    // No cargar vehículos aquí porque ya se cargan en cotizacion.js
+    // Solo verificar si el select ya tiene opciones
+    if (selectVehiculo && selectVehiculo.options.length <= 1) {
+        cargarVehiculos();
+    }
     cargarPlanes();
     cargarAsesores();
     
-    btnSimular.addEventListener('click', simularFinanciamiento);
-    btnGuardar.addEventListener('click', guardarCotizacion);
+    if (btnSimular) {
+        btnSimular.addEventListener('click', simularFinanciamiento);
+    }
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', guardarCotizacion);
+    }
 });
 
 function cargarVehiculos() {
+    if (!selectVehiculo) return;
+    // Solo agregar si no están ya cargados
+    if (selectVehiculo.options.length > 1) return;
+    
     autos.forEach(auto => {
         const option = document.createElement('option');
         option.value = auto.id;
@@ -33,6 +49,7 @@ function cargarVehiculos() {
 }
 
 function cargarPlanes() {
+    if (!selectPlan) return;
     planes.forEach(plan => {
         const option = document.createElement('option');
         option.value = plan.id;
@@ -42,6 +59,7 @@ function cargarPlanes() {
 }
 
 function cargarAsesores() {
+    if (!selectAsesor) return;
     integrantes.forEach(asesor => {
         const option = document.createElement('option');
         option.value = asesor.id;
@@ -52,6 +70,11 @@ function cargarAsesores() {
 
 // ========== CÁLCULO DE FINANCIAMIENTO ==========
 function simularFinanciamiento() {
+    if (!selectVehiculo || !selectPlan || !selectAsesor) {
+        console.error('Elementos del formulario no encontrados');
+        return;
+    }
+
     const vehiculoId = parseInt(selectVehiculo.value);
     const planId = parseInt(selectPlan.value);
     const asesorId = parseInt(selectAsesor.value);
@@ -93,17 +116,28 @@ function simularFinanciamiento() {
         totalIntereses,
         fecha: new Date().toISOString()
     };
+    
+    // Hacer accesible globalmente
+    window.simulacionActual = simulacionActual;
 
     mostrarResultado(simulacionActual);
     generarTablaAmortizacion(montoFinanciar, cuotaMensual, tasaMensual, numeroCuotas);
-    seccionAmortizacion.style.display = 'block';
+    
+    if (resultadoSimulador) {
+        resultadoSimulador.style.display = 'block';
+    }
+    if (btnVerAmortizacion) {
+    btnVerAmortizacion.style.display = 'block';
+    }
     
     mostrarToast('Simulación calculada exitosamente', 'success');
 }
 
 // ========== MOSTRAR RESULTADO ==========
 function mostrarResultado(sim) {
+    if (!resultadoSimulador) return;
     const resumenContenido = resultadoSimulador.querySelector('.resumen-contenido');
+    if (!resumenContenido) return;
     
     resumenContenido.innerHTML = `
         <div class="dato-resumen">
@@ -151,6 +185,7 @@ function mostrarResultado(sim) {
 
 // ========== TABLA DE AMORTIZACIÓN ==========
 function generarTablaAmortizacion(capital, cuota, tasaMensual, numeroCuotas) {
+    if (!tbodyAmortizacion) return;
     tbodyAmortizacion.innerHTML = '';
     let saldo = capital;
 
@@ -215,18 +250,75 @@ function guardarCotizacion() {
 
 // ========== NOTIFICACIONES TOAST ==========
 function mostrarToast(mensaje, tipo = 'success') {
-    const container = document.getElementById('toast-container');
+    // Intentar usar el contenedor de toast de cotizacion.html primero
+    let container = document.getElementById('toast-cotizacion');
+    if (!container) {
+        // Si no existe, usar el de simulador
+        container = document.getElementById('toast-container');
+    }
+    
+    if (!container) {
+        console.warn('No se encontró contenedor de toast');
+        return;
+    }
     
     const toast = document.createElement('div');
     toast.classList.add('toast', tipo);
+    if (container.id === 'toast-cotizacion') {
+        // Usar la clase de cotizacion
+        toast.classList.add('toast-alerta');
+    }
     toast.textContent = mensaje;
     
     container.appendChild(toast);
     
-    setTimeout(() => toast.classList.add('show'), 50);
+    setTimeout(() => {
+        toast.classList.add('show');
+        if (container.id === 'toast-cotizacion') {
+            toast.classList.add('mostrar');
+        }
+    }, 50);
     
     setTimeout(() => {
         toast.classList.remove('show');
+        if (container.id === 'toast-cotizacion') {
+            toast.classList.remove('mostrar');
+        }
         setTimeout(() => toast.remove(), 300);
     }, 3000);
 }
+
+// ========== CONTROL DEL MODAL ==========
+const modalAmortizacion = document.getElementById('modal-amortizacion');
+const btnVerAmortizacion = document.getElementById('btn-ver-amortizacion');
+const btnCerrarModal = document.getElementById('btn-cerrar-modal');
+
+// Abrir modal
+if (btnVerAmortizacion) {
+    btnVerAmortizacion.addEventListener('click', () => {
+        modalAmortizacion.classList.add('activo');
+    });
+}
+
+// Cerrar modal con el botón X
+if (btnCerrarModal) {
+    btnCerrarModal.addEventListener('click', () => {
+        modalAmortizacion.classList.remove('activo');
+    });
+}
+
+// Cerrar modal al hacer clic fuera del contenido
+if (modalAmortizacion) {
+    modalAmortizacion.addEventListener('click', (e) => {
+        if (e.target === modalAmortizacion) {
+            modalAmortizacion.classList.remove('activo');
+        }
+    });
+}
+
+// Cerrar modal con tecla ESC
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && modalAmortizacion && modalAmortizacion.classList.contains('activo')) {
+        modalAmortizacion.classList.remove('activo');
+    }
+});

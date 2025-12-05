@@ -1,4 +1,4 @@
-import { autos } from "../data/catalogo_autos.js";
+import { autos } from "../data/datos.js";
 
 // ===============================
 // ELEMENTOS DEL DOM

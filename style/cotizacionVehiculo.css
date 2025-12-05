@@ -1,0 +1,693 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'ToyotaType', Arial, sans-serif;
+    background-color: #f5f5f5;
+    min-height: 100vh;
+}
+
+#toast-cotizacion {
+    position: fixed;
+    top: 80px;          
+    left: 50%;          
+    transform: translateX(-50%); 
+    z-index: 2000;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.toast-alerta {
+    background: #fff6d1;
+    border: 1px solid #e0b100;
+    color: #6b4c00;
+    padding: 12px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+    opacity: 0;
+    transform: translateX(40px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast-alerta.mostrar {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+.cotizacion-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 140px 20px 40px;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/*
+   HEADER DE COTIZACIÓN
+*/
+.cotizacion-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.icono-header {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+
+.cotizacion-header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+    margin-bottom: 10px;
+}
+
+.subtitulo-cotizacion {
+    font-size: 1.1rem;
+    color: #666;
+    font-weight: 400;
+}
+
+/* 
+   SELECTOR DE VEHÍCULO
+*/
+.selector-vehiculo {
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.selector-vehiculo label {
+    display: block;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 1rem;
+}
+
+.select-vehiculo {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'ToyotaType', Arial, sans-serif;
+    background: white;
+    cursor: pointer;
+    transition: border-color 0.3s;
+}
+
+.select-vehiculo:hover {
+    border-color: #b92020;
+}
+
+.select-vehiculo:focus {
+    outline: none;
+    border-color: #b92020;
+    box-shadow: 0 0 0 3px rgba(0, 102, 204, 0.1);
+}
+
+/*
+   CONTENEDOR DE FILAS DE TARJETAS
+*/
+.fila-tarjetas {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    width: 100%;
+}
+
+/*
+   TARJETAS GENERALES
+*/
+.card-vehiculo,
+.card-financiamiento,
+.resultado-simulador {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #f0f0f0;
+}
+
+.card-header svg {
+    flex-shrink: 0;
+}
+
+.card-header h2 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1a1a1a;
+}
+
+/* 
+   SECCIÓN: VEHÍCULO SELECCIONADO Y COSTOS 
+*/
+
+/* Imagen del vehículo */
+.imagen-container {
+    text-align: center;
+    padding: 20px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 350px;
+}
+
+#auto-imagen {
+    width: 100%;
+    max-width: 600px;
+    height: 350px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    display: none;
+}
+
+#auto-imagen[src]:not([src=""]) {
+    display: block;
+}
+
+/* Campos de información del vehículo */
+.campos-vehiculo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+.campo {
+    display: flex;
+    flex-direction: column;
+}
+
+.campo label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.campo input {
+    padding: 10px 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-family: 'ToyotaType', Arial, sans-serif;
+    background: #f9f9f9;
+    color: #333;
+}
+
+.campo input:focus {
+    outline: none;
+    border-color: #b92020;
+    background: white;
+}
+
+/* Lista de costos adicionales */
+.lista-costos {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.item-costo {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid #a5a5a5;
+}
+
+.item-costo:last-child {
+    border-bottom: none;
+}
+
+.label-costo {
+    font-size: 1rem;
+    color: #333;
+    font-weight: 500;
+}
+
+.valor-costo {
+    font-size: 1.1rem;
+    color: #333;
+    font-weight: 600;
+}
+
+/* Barra de precio del vehículo */
+.barra-precio {
+    background: #e23434;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.barra-precio span:first-child {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.valor-precio {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+/* Barra de subtotal adicionales */
+.barra-subtotal {
+    background: #e23434;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.barra-subtotal span:first-child {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+.valor-subtotal {
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #ffffff;
+}
+
+.barra-TotalContado {
+    background: #e23434;
+    padding: 15px 20px;
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 15px;
+    width: 300px;       
+    margin-left: auto;   
+}
+
+.barra-TotalContado span:first-child {
+    font-weight: 600;
+    color: #ffffff;
+}
+
+/*
+   SECCIÓN: PLAN DE FINANCIAMIENTO
+*/
+.card-financiamiento {
+    text-align: center;
+}
+
+.btn-financiamiento {
+    display: inline-block;
+    padding: 18px 40px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    background: #e23434;
+    color: white;
+    text-decoration: none;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(220, 46, 3, 0.3);
+    margin-top: 10px;
+}
+
+.btn-financiamiento:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(220, 46, 3, 0.4);
+    background: #b92020;
+}
+
+/*
+   DISCLAIMER
+*/
+.disclaimer {
+    text-align: center;
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.disclaimer p {
+    font-size: 0.85rem;
+    color: #999;
+    font-style: italic;
+}
+
+/* ========== ESTILOS DEL SIMULADOR INTEGRADOS ========== */
+
+/* Formulario de Financiamiento */
+.formulario-financiamiento {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.campo-form {
+    margin-bottom: 0;
+}
+
+.campo-form label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+.campo-form select {
+    width: 100%;
+    padding: 12px;
+    font-size: 1rem;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    background: #f9f9f9;
+    transition: all 0.3s ease;
+    font-family: 'ToyotaType', Arial, sans-serif;
+}
+
+.campo-form select:focus {
+    outline: none;
+    border-color: #ef3620;
+    background: white;
+}
+
+/* Botón Simular */
+.btn-simular {
+    font-family: 'ToyotaType', Arial, sans-serif;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #dc2e03, #ef3620);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 10px;
+}
+
+.btn-simular:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #c02802, #dc2e03);
+}
+
+/* Resultado del Simulador */
+.resultado-simulador {
+    font-family: 'ToyotaType', Arial, sans-serif;
+}
+
+.resultado-simulador .card-header {
+    border-bottom: 2px solid #f0f0f0;
+    margin-bottom: 20px;
+    padding-bottom: 15px;
+}
+
+.resultado-simulador h2 {
+    font-size: 1.5rem;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.resumen-contenido {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.info-inicial {
+    text-align: center;
+    color: #666;
+    font-size: 1rem;
+    padding: 20px;
+}
+
+.dato-resumen {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px;
+    background: #f9f9f9;
+    border-radius: 8px;
+    border-left: 4px solid #ef3620;
+}
+
+.dato-resumen strong {
+    color: #333;
+    font-size: 0.95rem;
+}
+
+.dato-resumen span {
+    color: #dc2e03;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.cuota-destacada {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.cuota-destacada p {
+    font-size: 0.9rem;
+    color: #666;
+    margin-bottom: 8px;
+}
+
+.cuota-destacada .monto-cuota {
+    font-size: 2.5rem;
+    color: #dc2e03;
+    font-weight: 900;
+    text-shadow: 0px 0px 3px rgba(220, 46, 3, 0.3);
+}
+
+/* Tabla de Amortización */
+.seccion-amortizacion {
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+.tabla-amortizacion-card {
+    font-family: 'ToyotaType', Arial, sans-serif;
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.tabla-amortizacion-card h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.tabla-scroll {
+    overflow-x: auto;
+    max-height: 500px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+}
+
+.tabla-amortizacion {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tabla-amortizacion thead {
+    background: linear-gradient(145deg, #f1f1f1, #dcdcdc);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.tabla-amortizacion th {
+    padding: 15px;
+    text-align: center;
+    font-weight: 700;
+    color: #1a1a1a;
+    border-bottom: 2px solid #dc2e03;
+}
+
+.tabla-amortizacion td {
+    padding: 12px;
+    text-align: center;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tabla-amortizacion tbody tr:hover {
+    background: rgba(239, 54, 32, 0.05);
+}
+
+.tabla-amortizacion tbody tr:nth-child(even) {
+    background: #f9f9f9;
+}
+
+/* Botón Guardar en Tabla de Amortización */
+.btn-guardar {
+    font-family: 'ToyotaType', Arial, sans-serif;
+    width: 100%;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #4caf50, #66bb6a);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin-top: 20px;
+}
+
+.btn-guardar:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #388e3c, #4caf50);
+}
+
+/* Modal de Tabla de Amortización */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal-overlay.activo {
+    display: flex;
+}
+
+.modal-contenido {
+    background: white;
+    border-radius: 12px;
+    width: 90%;
+    max-width: 1000px;
+    max-height: 90vh;
+    overflow: hidden;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    position: relative;
+    animation: aparecer 0.3s ease;
+}
+
+@keyframes aparecer {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    border-bottom: 2px solid #f0f0f0;
+    background: white;
+}
+
+.modal-header h2 {
+    font-size: 1.8rem;
+    color: #1a1a1a;
+    margin: 0;
+}
+
+.btn-cerrar-modal {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s;
+    padding: 0;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.btn-cerrar-modal:hover {
+    color: #e23434;
+}
+
+.modal-body {
+    padding: 30px;
+    overflow-y: auto;
+    max-height: calc(90vh - 140px);
+}
+
+.btn-ver-amortizacion {
+   font-family: 'ToyotaType', Arial, sans-serif;
+    width: 100%;
+    max-width: 400px;
+    padding: 15px;
+    font-size: 1.1rem;
+    font-weight: 700;
+    background: linear-gradient(145deg, #dc2e03, #ef3620);
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 20px auto;
+    display: block;
+}
+
+.btn-ver-amortizacion:hover {
+     transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    background: linear-gradient(145deg, #b92020, #dc2e03);
+}
+
+.btn-ver-amortizacion:disabled {
+    background: #681313;
+    cursor: not-allowed;
+    transform: none;
+}

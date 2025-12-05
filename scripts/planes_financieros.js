@@ -1,4 +1,4 @@
-import { planes } from '../data/db_planes.js';
+import { planes } from '../data/datos.js';
 
 const contenedorPlanes = document.querySelector('.contenedor-planes');
 
@@ -39,7 +39,7 @@ function cargarPlanes(arrayPlanes, contenedor) {
 
         const btnSimular = document.createElement('a');
         btnSimular.classList.add('btn-simular-plan');
-        btnSimular.href = 'simulador.html';
+        btnSimular.href = 'login.html';
         btnSimular.textContent = 'Simular con este plan';
 
         tarjeta.appendChild(icono);

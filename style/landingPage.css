@@ -35,6 +35,10 @@
     max-width: 100%; 
     filter: drop-shadow(5px 5px 10px gray)
 }
+.logoFooter{
+    width: 100px; 
+    max-width: 100%; 
+}
 
 .hero {
     font-family: 'ToyotaType';
@@ -126,32 +130,63 @@
     box-shadow: 0px 0px 25px rgba(0,0,0,0.3);
 }
 
+
 .piePagina{
     padding-left: 20px;
     padding-right: 20px;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: space-around;
     align-items: center;
     background-color: black;
     width: 100%;
-    height: 100px;
+    min-height: 120px;
+    padding-bottom: 18px;
+
+}
+.menuFooter a{
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 400;
+    font-family: 'ToyotaType';
+    margin: 0 15px;
+    opacity: 0.8;
+    text-shadow: 0px 0px 5px rgb(219, 219, 219);
+}
+
+
+.contenedorFooter {
+    display: flex;
+    flex-direction: column; 
+    align-items: center;
+    justify-content: space-evenly;
+    border-bottom: #ffffff 1px solid;
+    font-size: 12px;
+    font-weight: 400;
+    border-radius: 8px;
+    width: 100%;
+    height: 170px;
+    max-width: 1200px;
+
 }
 .contenidoPie{
     font-family: 'ToyotaType';
     font-weight: 400;
     color: #ffffff;
     font-size: 12px;
-    font-style: italic;
-    opacity: 0.6;
+    opacity: 0.8;
     text-shadow: 0px 0px 3px rgb(168, 168, 168);
 }
 .contenedorRedes{
-    width: 15%;
+    width: 23%;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-
+    align-self: center;
+    margin: 10px 0px;
+    gap: 60px;
+    
 
 }
 .logosRedes{

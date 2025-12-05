@@ -1,227 +1,179 @@
-/* ===========================
-   ESTILOS GENERALES
-=========================== */
-body {
-    font-family: Arial, sans-serif;
-    background: #f7f7f7;
-    margin: 0;
-    padding: 0;
+/* ======================================
+   ESTILOS EXISTENTES (NO MODIFICADOS)
+====================================== */
+header {
+    background-color: #cccccc;
+    padding: 15px 30px;
+    border-bottom: 1px solid #bcbcbc;
+    font-style: italic;
+    color: #e70000; 
 }
 
-/* ===========================
-   ENCABEZADO (NO SE MODIFICA)
-=========================== */
-#encabezado {
-    background-color: #ffffff;
-    padding: 15px 40px;
+.header-container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-bottom: 1px solid #ddd;
 }
 
-.logo {
-    height: 60px;
+.logo-empresa img {
+    width: 140px;
+    height: auto;
+    shape-outside: margin-box;
 }
 
-.menu-navegacion ul {
-    list-style: none;
-    display: flex;
-    gap: 25px;
-}
-
-.menu-navegacion a {
-    text-decoration: none;
-    color: #333;
-    font-weight: 600;
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f5f5f5;
 }
 
 .header-detalle {
-    text-align: center;
-    padding: 25px 0 10px;
-}
-
-.header-detalle h2 {
-    margin: 0;
-    font-size: 32px;
-}
-
-/* ===========================
-   IMAGEN PRINCIPAL
-=========================== */
-.imagen-container {
-    width: 100%;
-    max-width: 900px;
-    margin: 30px auto 15px auto;
+    background: #bf1111;
+    padding: 15px 25px;
+    border-bottom: 1px solid #ddd;
     display: flex;
-    justify-content: center;
+    justify-content: space-between;
+    align-items: center;
 }
 
-#auto-imagen {
-    width: 100%;
-    max-height: 480px;
-    object-fit: cover;
-    border-radius: 12px;
-    box-shadow: 0 3px 10px rgba(0,0,0,0.15);
+.btn-volver {
+    text-decoration: none;
+    color: #ffffff;
+    font-size: 14px;
+    background: #000000;
+    padding: 5px 12px;
+    border-radius: 6px;
+    transition: 0.2s;
 }
 
-/* ===========================
-   MINIATURAS
-=========================== */
-.miniaturas-container {
+.btn-volver:hover {
+    background: #ae0a0a;
+}
+
+.detalle-container {
     display: flex;
-    justify-content: center;
-    gap: 15px;
-    margin: 10px auto 25px auto;
-    flex-wrap: wrap;
-}
-
-.miniatura {
-    width: 120px;
-    height: 80px;
-    object-fit: cover;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: transform 0.2s, border 0.2s;
-    border: 2px solid transparent;
-}
-
-.miniatura:hover {
-    transform: scale(1.05);
-}
-
-.miniatura.active {
-    border: 3px solid #d80032;
-    transform: scale(1.07);
-}
-
-/* ===========================
-   INFORMACIÓN DEL VEHÍCULO
-=========================== */
-.info-container {
-    max-width: 900px;
-    margin: 0 auto 50px auto;
+    gap: 40px;
+    padding: 30px;
+    max-width: 1100px;
+    margin: auto;
     background: white;
-    padding: 25px 30px;
-    border-radius: 14px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.10);
+    border-radius: 10px;
+    margin-top: 25px;
+    box-shadow: 0 0 10px #ddd;
 }
 
-.info-container h2 {
-    margin-top: 0;
-    font-size: 28px;
-    color: #222;
+.imagen-container img {
+    width: 420px;
+    height: auto;
+    border-radius: 10px;
+}
+
+.info-container {
+    flex: 1;
 }
 
 .lista-detalles {
     list-style: none;
     padding: 0;
-    margin: 20px 0;
-    font-size: 18px;
 }
 
 .lista-detalles li {
-    margin-bottom: 8px;
+    margin: 8px 0;
+    font-size: 16px;
 }
 
-/* ===========================
-   COLORES DISPONIBLES
-=========================== */
 .colores {
     display: flex;
-    gap: 12px;
-    margin: 15px 0 25px 0;
+    gap: 10px;
+    margin-top: 10px;
 }
 
 .color-tag {
-    padding: 8px 14px;
-    background: #ececec;
-    border-radius: 6px;
+    background: #e7e7e7;
+    padding: 6px 12px;
+    border-radius: 8px;
     font-size: 14px;
-    border: 1px solid #ccc;
 }
 
-/* ===========================
-   BOTONES
-=========================== */
+
+/* ======================================
+   BOTONES DEL DETALLE — NUEVO
+====================================== */
+
 .acciones-detalle {
+    margin-top: 25px;
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
-    gap: 18px;
-    margin-top: 25px;
+    gap: 15px;
 }
 
-.acciones-detalle a,
-.acciones-detalle button {
-    padding: 12px 20px;
-    font-size: 16px;
-    cursor: pointer;
+/* Estilo general para botones */
+.acciones-detalle button,
+.acciones-detalle a {
+    padding: 10px 18px;
     border-radius: 8px;
+    font-size: 15px;
     border: none;
-    transition: background 0.2s, transform 0.15s;
+    cursor: pointer;
+    text-decoration: none;
+    transition: 0.25s;
+    font-weight: bold;
 }
 
-/* Botón Rojo */
+/* 1. Agendar Test Drive */
 .btn-testdrive {
-    background: #d80032;
-    color: white;
+    background: #d40000;
+    color: #ffffff;
 }
 .btn-testdrive:hover {
-    background: #a90027;
-    transform: scale(1.05);
+    background: #a60000;
 }
 
-/* Botón Azul */
+/* 2. Contactar asesor */
 .btn-asesor {
-    background: #0057d8;
+    background: #004aad;
     color: white;
 }
 .btn-asesor:hover {
-    background: #0043a8;
-    transform: scale(1.05);
+    background: #003580;
 }
 
-/* Botón Verde */
+/* 3. Simular Pago */
 .btn-cotizar {
-    background: #008f4c;
+    background: #008c4a;
     color: white;
 }
 .btn-cotizar:hover {
-    background: #006f3a;
-    transform: scale(1.05);
+    background: #006a38;
 }
 
-/* Botón Favoritos */
+/* 4. Guardar en favoritos */
 .btn-favorito {
-    background: #f0f0f0;
-    color: #222;
-    border: 1px solid #bbb;
+    background: #e2e2e2;
+    color: #333;
 }
 .btn-favorito:hover {
-    background: #e2e2e2;
-    transform: scale(1.05);
+    background: #cfcfcf;
 }
 
-/* ===========================
-   TOAST (NOTIFICACIONES)
-=========================== */
+/* TOAST / NOTIFICACIONES */
 #toast-container {
     position: fixed;
     top: 20px;
     right: 20px;
-    z-index: 3000;
+    z-index: 9999;
 }
 
 .toast {
     background: #333;
-    color: white;
+    color: #fff;
     padding: 12px 18px;
-    margin-top: 10px;
     border-radius: 6px;
+    margin-top: 10px;
     opacity: 0;
-    transform: translateX(50px);
-    transition: 0.3s;
+    transform: translateX(100%);
+    transition: all .4s ease;
+    font-size: 14px;
 }
 
 .toast.show {
@@ -229,171 +181,25 @@ body {
     transform: translateX(0);
 }
 
-/* ===========================
-   FOOTER
-=========================== */
-/* ===========================
-   FOOTER
-=========================== */
-.piePagina {
-    background-color: #1a1a1a;
-    color: #ffffff;
-    padding: 60px 20px 20px;
-    font-family: Arial, sans-serif;
-}
-
-.contenedorFooter {
-    max-width: 1200px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 40px;
-    margin-bottom: 40px;
-}
-
-.columnaFooter {
-    display: flex;
-    flex-direction: column;
-}
-
-.tituloColumna {
-    color: #ff1818;
-    font-size: 18px;
-    font-weight: bold;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-}
-
-.textoFooter {
-    color: #cccccc;
-    font-size: 14px;
-    line-height: 1.6;
-    margin-bottom: 12px;
-}
-
-.textoFooter strong {
-    color: #ffffff;
-}
-
-.listaFooter,
-.listaHorarios {
-    list-style: none;
-    padding: 0;
-    margin: 0 0 15px 0;
-}
-
-.listaFooter li,
-.listaHorarios li {
-    margin-bottom: 10px;
-    color: #ffffff;
-    font-size: 14px;
-}
-
-.listaHorarios li span {
-    color: #ffffff;
-    font-weight: bold;
-    display: inline-block;
-    min-width: 120px;
-}
-
-.enlaceFooter {
-    color: #cccccc;
-    text-decoration: none;
-    transition: color 0.3s ease;
-}
-
-.enlaceFooter:hover {
-    color: #ff6b35;
-}
-
-.direccion {
-    margin-top: 15px;
-}
-
-.contenedorRedes {
-    display: flex;
-    gap: 15px;
-    margin-top: 15px;
-}
-
-.enlaceRed {
-    display: inline-block;
-    transition: transform 0.3s ease;
-}
-
-.enlaceRed:hover {
-    transform: translateY(-5px);
-}
-
-.logosRedes {
-    width: 40px;
-    height: 40px;
-    border-radius: 8px;
-    transition: opacity 0.3s ease;
-}
-
-.logosRedes:hover {
-    opacity: 0.8;
-}
-
-.barraCopyright {
-    border-top: 1px solid #333333;
-    padding-top: 20px;
+footer {
+    background-color: #000000;
+    color: white;
     text-align: center;
+    padding: 25px;
+    margin-top: 40px;
 }
 
-.contenidoPie {
-    color: #999999;
-    font-size: 13px;
-    margin: 0;
+.contenedorRedes{
+    width: 15%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
 }
 
-.enlaceTerminos {
-    color: #ff3535;
-    text-decoration: none;
-    margin-left: 10px;
+.logosRedes{
+    width: 22px;
+    filter: drop-shadow(5px 5px 10px rgb(100, 0, 0));
+    display: flex;
+    justify-items: center;
 }
 
-.enlaceTerminos:hover {
-    text-decoration: underline;
-}
-
-/* ===========================
-   RESPONSIVE
-=========================== */
-@media (max-width: 768px) {
-
-    #auto-imagen {
-        max-height: 300px;
-    }
-
-    .miniatura {
-        width: 90px;
-        height: 60px;
-    }
-
-    .info-container {
-        padding: 20px;
-    }
-
-    .info-container h2 {
-        text-align: center;
-    }
-
-    .lista-detalles {
-        font-size: 16px;
-    }
-
-    .acciones-detalle {
-        flex-direction: column;
-    }
-
-    .btn-testdrive,
-    .btn-asesor,
-    .btn-cotizar,
-    .btn-favorito {
-        width: 100%;
-        text-align: center;
-    }
-}
