@@ -4,29 +4,52 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detalles del Vehículo</title>
-    <link rel="stylesheet" href="../style/landingPage.css">
+    <link rel="stylesheet" href="../style/fonts.css" />
     <link rel="stylesheet" href="../style/detalle_auto.css">
 </head>
 <body>
 
     <!-- Contenedor para notificaciones push -->
     <div id="toast-container"></div>
-
-    <header>
-        <div class="header-container">
-            <div class="logo-empresa">
-                <img src="../img/logos/logo.png" alt="Logo de la Empresa">
-            </div>
-            <h2>Detalles del Vehículo</h2>
-            <a href="catalogo.html" class="btn-volver">← Volver al catálogo</a>
-        </div>
+      
+    <!-- ===========================
+         ENCABEZADO
+    ============================ -->
+    <header id="encabezado">
+        <a href="landingPage.html">
+            <img class="logo" src="../img/logos/logo.png" alt="Pride Autosales Logo" />
+        </a>
+        <nav class="menu-navegacion">
+            <ul>
+                <li><a href="landingPage.html">Inicio</a></li>
+                <li><a href="catalogo.html">Catálogo</a></li>
+                <li><a href="asesores.html">Asesores</a></li>
+                <li><a href="planes_financieros.html">Planes Financieros</a></li>
+                <li><a href="login.html">Iniciar Sesión</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main class="detalle-container">
+    <!-- ===========================
+         TÍTULO Y NAVEGACIÓN
+    ============================ -->
+    <div class="header-detalle">
+        <h2>Detalles del Vehículo</h2>
+    </div>
 
-        <div class="imagen-container">
-            <img id="auto-imagen" src="" alt="Auto">
-        </div>
+    <!-- ===========================
+         CONTENIDO PRINCIPAL
+    ============================ -->
+    <div class="imagen-container">
+    <img id="auto-imagen" src="" alt="Auto">
+    </div>
+
+    <div class="miniaturas-container" id="miniaturas">
+        <img class="miniatura" id="m1" src="" alt="Miniatura 1">
+        <img class="miniatura" id="m2" src="" alt="Miniatura 2">
+        <img class="miniatura" id="m3" src="" alt="Miniatura 3">
+        <img class="miniatura" id="m4" src="" alt="Miniatura 4">
+    </div>
 
         <div class="info-container">
             <h2 id="auto-nombre"></h2>
@@ -57,35 +80,86 @@
         </div>
 
     </main>
+
+    <!-- ===========================
+         FOOTER
+    ============================ -->
     <footer class="piePagina">
-        <div class="contenedorFooter"> 
-            <img class="logoFooter" src="../img/logos/logo2.png" alt="">
-            <div class ="menuFooter">
-                <a href="landingPage.html">Inicio</a>
-                <a href="#hero">Sobre nosotros</a>
-                <a href="catalogo.html">Nuestros vehículos</a>
-                <a href="https://www.instagram.com/">Contáctanos</a>
+        <div class="contenedorFooter">
+            <!-- Columna 1: Sobre Nosotros -->
+            <div class="columnaFooter" id="sobreNosotros">
+                <h4 class="tituloColumna">Sobre Nosotros</h4>
+                <p class="textoFooter">
+                    Pride Autosales es tu patio de vehículos de confianza. Ofrecemos una
+                    amplia selección de autos usados certificados con garantía y
+                    financiamiento flexible.
+                </p>
+                <p class="textoFooter">
+                    Comprometidos con la calidad y satisfacción de nuestros clientes.
+                </p>
             </div>
-            <div class="contenedorRedes">
-                <a href="https://www.facebook.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoFacebook.png" alt="">
-                </a>
-                <a href="https://www.instagram.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoInstagram.png" alt="">
-                </a>
-                <a href="https://www.tiktok.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoTikTok.png" alt="">
-                </a>
-                <a href="https://x.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoX.png" alt="">
-                </a>
+
+            <!-- Columna 2: Atención al Cliente -->
+            <div class="columnaFooter" id="atencionCliente">
+                <h4 class="tituloColumna">Atención al Cliente</h4>
+                <ul class="listaFooter">
+                    <li><a href="#" class="enlaceFooter">Preguntas Frecuentes</a></li>
+                    <li><a href="#" class="enlaceFooter">Financiamiento</a></li>
+                    <li><a href="#" class="enlaceFooter">Garantías</a></li>
+                    <li><a href="#" class="enlaceFooter">Contáctanos</a></li>
+                </ul>
+                <p class="textoFooter">
+                    <strong>Teléfono:</strong> (04) 123-4567<br />
+                    <strong>Email:</strong> info@prideautosales.com
+                </p>
+            </div>
+
+            <!-- Columna 3: Horarios de Servicio -->
+            <div class="columnaFooter" id="horariosServicio">
+                <h4 class="tituloColumna">Horarios de Servicio</h4>
+                <ul class="listaHorarios">
+                    <li><span>Lunes - Viernes:</span> 9:00 AM - 7:00 PM</li>
+                    <li><span>Sábados:</span> 9:00 AM - 5:00 PM</li>
+                    <li><span>Domingos:</span> 10:00 AM - 3:00 PM</li>
+                </ul>
+                <p class="textoFooter direccion">
+                    <strong>Dirección:</strong><br />
+                    Av. Principal #123<br />
+                    Guayaquil, Ecuador
+                </p>
+            </div>
+
+            <!-- Columna 4: Redes Sociales -->
+            <div class="columnaFooter" id="redesSociales">
+                <h4 class="tituloColumna">Síguenos</h4>
+                <p class="textoFooter">Conéctate con nosotros en redes sociales</p>
+                <div class="contenedorRedes">
+                    <a href="https://www.facebook.com/" class="enlaceRed" aria-label="Facebook">
+                        <img class="logosRedes" src="../img/logos/logoFacebook.png" alt="Facebook" />
+                    </a>
+                    <a href="https://www.instagram.com/" class="enlaceRed" aria-label="Instagram">
+                        <img class="logosRedes" src="../img/logos/logoInstagram.png" alt="Instagram" />
+                    </a>
+                    <a href="https://www.tiktok.com/" class="enlaceRed" aria-label="TikTok">
+                        <img class="logosRedes" src="../img/logos/logoTikTok.png" alt="TikTok" />
+                    </a>
+                    <a href="https://x.com/" class="enlaceRed" aria-label="X (Twitter)">
+                        <img class="logosRedes" src="../img/logos/logoX.png" alt="X" />
+                    </a>
+                </div>
             </div>
         </div>
-        <h3 class="contenidoPie">Copyright © 2024 Pride Autosales - Todos los derechos reservados. Términos y Condiciones</h3>
+
+        <!-- Barra de Copyright -->
+        <div class="barraCopyright">
+            <p class="contenidoPie">
+                Copyright © 2024 Pride Autosales - Todos los derechos reservados.
+                <a href="#" class="enlaceTerminos">Términos y Condiciones</a>
+            </p>
+        </div>
     </footer>
 
     <script type="module" src="/scripts/detalle_auto.js"></script>
     
 </body>
 </html>
-

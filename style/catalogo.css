@@ -8,64 +8,31 @@ body {
 }
 
 /* ===========================
-   HEADER
+   ENCABEZADO
 =========================== */
-header {
-    background-color: #ffffff;
-    padding: 15px 30px;
-    border-bottom: 1px solid #ddd;
-}
-
-/* CONTENEDOR PRINCIPAL DEL HEADER */
-.header-container {
+#encabezado {
     display: flex;
-    justify-content: space-between;  /* Logo izquierda – búsqueda derecha */
-    align-items: center;             /* Alineación vertical */
-}
-
-/* LOGO */
-.logo-empresa img {
-    width: 140px;
-    height: auto;
-}
-
-/* BARRA DE BÚSQUEDA */
-.busqueda form {
-    display: flex;
+    flex-direction: row;
     align-items: center;
-    gap: 10px;
+    justify-content: space-around;
+    flex-wrap: wrap; 
+    background-color: rgb(241, 241, 241);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000; 
 }
 
-.busqueda input {
-    padding: 8px 12px;
-    width: 250px;
-    border: 1px solid #aaa;
-    border-radius: 5px;
+.logo {
+    margin: 10px;
+    width: 130px; 
+    max-width: 100%; 
+    filter: drop-shadow(5px 5px 10px gray);
 }
-
-.busqueda button {
-    padding: 8px 16px;
-    border: none;
-    background-color: #bf1111;
-    color: white;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.busqueda button:hover {
-    background-color: #a10000;
-}
-
-
 
 /* ===========================
    MENÚ DE NAVEGACIÓN
 =========================== */
-.menu-navegacion {
-    background-color: #bf1111;
-    padding: 10px 0;
-}
-
 .menu-navegacion ul {
     list-style: none;
     display: flex;
@@ -76,13 +43,75 @@ header {
 }
 
 .menu-navegacion a {
-    color: white;
+    color: rgb(0, 0, 0);
     text-decoration: none;
+    font-family: 'ToyotaType';
+    font-weight: 600;
     font-size: 16px;
 }
 
 .menu-navegacion a:hover {
+    color: red;
     text-decoration: underline;
+}
+
+/* ===========================
+   SECCIÓN DE BÚSQUEDA Y FILTROS 
+=========================== */
+.busqueda {
+    margin-top: 100px;
+    width: 100%;
+    background-color: #bf1111;
+    padding: 25px 10px;
+    display: flex;
+    justify-content: center;
+    box-sizing: border-box;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+#form-busqueda {
+    width: 100%;
+    max-width: 1300px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 25px;
+}
+
+.busqueda .grupo {
+    display: flex;
+    flex-direction: column;
+    min-width: 200px;
+    max-width: 240px;
+    flex: 1 1 180px;
+    color: white;
+    font-weight: bold;
+}
+
+.busqueda input,
+.busqueda select {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: none;
+    font-size: 14px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.btn-buscar {
+    background-color: black;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 15px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-buscar:hover {
+    background-color: #333;
 }
 
 /* ===========================
@@ -97,6 +126,7 @@ header {
     justify-content: center;
     gap: 30px;
     margin-bottom: 40px;
+    flex-wrap: wrap;
 }
 
 /* Tarjetas de autos */
@@ -105,9 +135,14 @@ header {
     width: 300px;
     border-radius: 10px;
     padding: 15px;
-    box-shadow: 0px 4px 10px rgba(0,0,0,0.15);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
     text-align: center;
     transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.auto-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .auto-card img {
@@ -118,58 +153,230 @@ header {
 }
 
 .auto-card h3 {
-    margin: 15px 0 5px;
+    margin: 15px 0 10px;
     font-size: 20px;
-    color: #003366;
+    color: #d50000;
 }
 
-.auto-card p {
+.descripcion-auto {
     font-size: 14px;
-    color: #555;
+    color: #666;
+    line-height: 1.4;
+    min-height: 60px;
     margin-bottom: 10px;
 }
 
-.auto-card a {
+.precio-auto {
+    font-size: 20px;
+    font-weight: bold;
+    color: #000000;
+    margin: 10px 0;
+}
+
+.btn-ver-mas {
     display: inline-block;
-    padding: 8px 12px;
-    background-color: #0066cc;
+    padding: 10px 20px;
+    background-color: #e20000;
     color: white;
     text-decoration: none;
     border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-.auto-card a:hover {
-    background-color: #004c99;
-}
-
-/* Hover */
-.auto-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0px 8px 20px rgba(0,0,0,0.25);
+.btn-ver-mas:hover {
+    background-color: #790808;
 }
 
 /* ===========================
    FOOTER
 =========================== */
-footer {
-    background-color: #000000;
-    color: white;
+.piePagina {
+    background-color: #1a1a1a;
+    color: #ffffff;
+    padding: 60px 20px 20px;
+    font-family: Arial, sans-serif;
+}
+
+.contenedorFooter {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.columnaFooter {
+    display: flex;
+    flex-direction: column;
+}
+
+.tituloColumna {
+    color: #ff1818;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.textoFooter {
+    color: #cccccc;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.textoFooter strong {
+    color: #ffffff;
+}
+
+.listaFooter,
+.listaHorarios {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.listaFooter li,
+.listaHorarios li {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.listaHorarios li span {
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.enlaceFooter {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.enlaceFooter:hover {
+    color: #ff6b35;
+}
+
+.direccion {
+    margin-top: 15px;
+}
+
+.contenedorRedes {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.enlaceRed {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.enlaceRed:hover {
+    transform: translateY(-5px);
+}
+
+.logosRedes {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.logosRedes:hover {
+    opacity: 0.8;
+}
+
+.barraCopyright {
+    border-top: 1px solid #333333;
+    padding-top: 20px;
     text-align: center;
-    padding: 25px;
-    margin-top: 40px;
 }
 
-.contenedorRedes{
-    width: 15%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
+.contenidoPie {
+    color: #999999;
+    font-size: 13px;
+    margin: 0;
 }
 
-.logosRedes{
-    width: 22px;
-    filter: drop-shadow(5px 5px 10px rgb(100, 0, 0));
-    display: flex;
-    justify-items: center;
+.enlaceTerminos {
+    color: #ff3535;
+    text-decoration: none;
+    margin-left: 10px;
 }
 
+.enlaceTerminos:hover {
+    text-decoration: underline;
+}
+
+/* ===========================
+   RESPONSIVE DESIGN
+=========================== */
+@media (max-width: 992px) {
+    .contenedorFooter {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .fila-autos {
+        gap: 20px;
+    }
+
+    .auto-card {
+        width: 280px;
+    }
+}
+
+@media (max-width: 576px) {
+    .menu-navegacion ul {
+        gap: 20px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .busqueda {
+        margin-top: 150px;
+    }
+
+    #form-busqueda {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .busqueda .grupo {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .catalogo-autos {
+        padding: 20px;
+    }
+
+    .fila-autos {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .auto-card {
+        width: 100%;
+        max-width: 350px;
+    }
+
+    .contenedorFooter {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    .piePagina {
+        padding: 40px 15px 15px;
+    }
+
+    .tituloColumna {
+        font-size: 16px;
+    }
+}

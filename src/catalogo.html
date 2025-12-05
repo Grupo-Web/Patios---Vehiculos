@@ -3,140 +3,224 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../style/fonts.css" />
     <link rel="stylesheet" href="../style/catalogo.css">
-    <link rel="stylesheet" href="../style/landingPage.css">
     <title>Catálogo de Autos</title>
-</head>
-<body>
 
-    <!-- ===========================
-         CABECERA
-    ============================ -->
-    <header>
-        <div class="header-container">
-
-            <!-- Barra de búsqueda -->
-            <div class="busqueda">
-                <form id="form-busqueda">
-                    <input type="text" id="input-busqueda" placeholder="Buscar por modelo, marca, año...">
-                    <button type="submit">Buscar</button>
-                </form>
-            </div>
-
-            <!-- Logo -->
-            <div class="logo-empresa">
-                <!-- Dejar este espacio para agregar una imagen -->
-                <img src="../img/logos/logo.png" alt="Logo de la Empresa">
-            </div>
-        </div>
-    </header>
-
-    <!-- ===========================
-         BLOQUE DE OPCIONES / MENÚ
-    ============================ -->
-    <nav class="menu-navegacion">
+  </head>
+  <body>
+    <header id="encabezado">
+      <a href="landingPage.html">
+        <img class="logo" src="../img/logos/logo.png" alt="" />
+      </a>
+      <nav class="menu-navegacion">
         <ul>
-            <li><a href="landingPage.html">Inicio</a></li>
-            <li><a href="asesores.html">Asesores</a></li>
-            <li><a href="planes_financieros.html">Planes Financieros</a></li>
-            <li><a href="login.html">Iniciar Sesión</a></li>
+          <li><a href="landingPage.html">Inicio</a></li>
+          <li><a href="asesores.html">Asesores</a></li>
+          <li><a href="planes_financieros.html">Planes Financieros</a></li>
+          <li><a href="login.html">Iniciar Sesión</a></li>
         </ul>
-    </nav>
+      </nav>
+
+</header>
+
+<!-- ============================
+     NUEVA SECCIÓN DE BÚSQUEDA Y FILTROS (CUADRO ROJO)
+============================ -->
+<section class="busqueda">
+  <form id="form-busqueda">
+
+    <!-- Búsqueda por texto -->
+    <div class="grupo">
+      <label for="input-busqueda">Buscar:</label>
+      <input type="text" id="input-busqueda" placeholder="Buscar por modelo, marca, año..." />
+    </div>
+
+    <!-- Filtro por precio -->
+    <div class="grupo">
+      <label for="filtro-precio">Precio:</label>
+      <select id="filtro-precio">
+        <option value="">Todos</option>
+        <option value="5000-10000">5,000 - 10,000</option>
+        <option value="10000-15000">10,000 - 15,000</option>
+        <option value="15000-20000">15,000 - 20,000</option>
+        <option value="20000-30000">20,000 - 30,000</option>
+        <option value="30000-40000">30,000 - 40,000</option>
+        <option value="40000-55000">40,000 - 55,000</option>
+      </select>
+    </div>
+
+    <!-- Filtro por año -->
+    <div class="grupo">
+      <label for="filtro-anio">Año:</label>
+      <select id="filtro-anio">
+        <option value="">Todos</option>
+        <option value="2025">2025</option>
+        <option value="2024">2024</option>
+        <option value="2023">2023</option>
+        <option value="2022">2022</option>
+        <option value="2021">2021</option>
+        <option value="2020">2020</option>
+        <option value="2019">2019</option>
+        <option value="2018">2018</option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn-buscar">Buscar</button>
+  </form>
+</section>
+
 
     <!-- ===========================
          CONTENEDOR PRINCIPAL DE AUTOS
     ============================ -->
     <main class="catalogo-autos">
+      <!-- FILA 1: 3 AUTOS -->
+      <section class="fila-autos">
+        <div class="auto-card">
+          <img src="../img/autos/Toyota_corolla_sedan.png" alt="Auto 1" />
+          <h3>Toyota Corolla 2022</h3>
+          <p>
+            Sedán compacto confiable, con buen equilibrio entre eficiencia de
+            combustible y confort, ideal para uso urbano o familiar.
+          </p>
+          <a href="/src/detalle_auto.html?id=1">Ver más</a>
+        </div>
 
-        <!-- FILA 1: 3 AUTOS -->
-        <section class="fila-autos">
+        <div class="auto-card">
+          <img src="../img/autos/honda-civic.jpg" alt="Auto 2" />
+          <h3>Honda Civic 2023</h3>
+          <p>
+            Sedán moderno con diseño deportivo, buen equipamiento y un motor
+            ágil (turbo de 1.5 L disponible), ideal para quienes buscan estilo y
+            rendimiento.
+          </p>
+          <a href="/src/detalle_auto.html?id=2">Ver más</a>
+        </div>
 
-            <div class="auto-card">
-                <img src="../img/autos/Toyota_corolla_sedan.png" alt="Auto 1">
-                <h3>Toyota Corolla 2022</h3>
-                <p>Sedán compacto confiable, con buen equilibrio entre eficiencia de combustible y confort, ideal para uso urbano o familiar.</p>
-                <a href="/src/detalle_auto.html?id=1">Ver más</a>
-            </div>
+        <div class="auto-card">
+          <img src="../img/autos/mazda_cx5.jpg" alt="Auto 3" />
+          <h3>Mazda CX-5 2021</h3>
+          <p>
+            SUV mediana elegante y cómoda, con buen desempeño y tracción
+            estándar — una opción versátil tanto para ciudad como carretera.
+          </p>
+          <a href="/src/detalle_auto.html?id=3">Ver más</a>
+        </div>
+      </section>
 
-            <div class="auto-card">
-                <img src="../img/autos/honda-civic.jpg" alt="Auto 2">
-                <h3>Honda Civic 2023</h3>
-                <p>Sedán moderno con diseño deportivo, buen equipamiento y un motor ágil (turbo de 1.5 L disponible), ideal para quienes buscan estilo y rendimiento.</p>
-                <a href="/src/detalle_auto.html?id=2">Ver más</a>
-            </div>
+      <!-- FILA 2: 3 AUTOS -->
+      <section class="fila-autos">
+        <div class="auto-card">
+          <img src="../img/autos/hyundai_tucson.png" alt="Auto 4" />
+          <h3>Hyundai Tucson 2022</h3>
+          <p>
+            SUV compacto con diseño renovado y estilo distintivo, buscando
+            equilibrio entre espacio, confort y practicidad para uso diario.
+          </p>
+          <a href="/src/detalle_auto.html?id=4">Ver más</a>
+        </div>
 
-            <div class="auto-card">
-                <img src="../img/autos/mazda_cx5.jpg" alt="Auto 3">
-                <h3>Mazda CX-5 2021</h3>
-                <p>SUV mediana elegante y cómoda, con buen desempeño y tracción estándar — una opción versátil tanto para ciudad como carretera.</p>
-                <a href="/src/detalle_auto.html?id=3">Ver más</a>
-            </div>
+        <div class="auto-card">
+          <img src="../img/autos/ford-Mustang.png" alt="Auto 5" />
+          <h3>Ford Mustang 2023</h3>
+          <p>
+            Deportivo icónico, diseñado para potencia y estilo agresivo, pensado
+            para quienes buscan sensaciones fuertes al volante.
+          </p>
+          <a href="/src/detalle_auto.html?id=5">Ver más</a>
+        </div>
 
-        </section>
-
-        <!-- FILA 2: 3 AUTOS -->
-        <section class="fila-autos">
-
-            <div class="auto-card">
-                <img src="../img/autos/hyundai_tucson.png" alt="Auto 4">
-                <h3>Hyundai Tucson 2022</h3>
-                <p>SUV compacto con diseño renovado y estilo distintivo, buscando equilibrio entre espacio, confort y practicidad para uso diario.</p>
-                <a href="/src/detalle_auto.html?id=4">Ver más</a>
-            </div>
-
-            <div class="auto-card">
-                <img src="../img/autos/ford-Mustang.png" alt="Auto 5">
-                <h3>Ford Mustang 2023</h3>
-                <p>Deportivo icónico, diseñado para potencia y estilo agresivo, pensado para quienes buscan sensaciones fuertes al volante.</p>
-                <a href="/src/detalle_auto.html?id=5">Ver más</a>
-            </div>
-
-            <div class="auto-card">
-                <img src="../img/autos/Chevrolet_Camaro.jpg" alt="Auto 6">
-                <h3>Chevrolet Camaro 2022</h3>
-                <p>Coupé deportivo con gran carácter y presencia en carretera, ideal para quienes valoran potencia y estilo distintivo..</p>
-                <a href="/src/detalle_auto.html?id=6">Ver más</a>
-            </div>
-
-        </section>
-
+        <div class="auto-card">
+          <img src="../img/autos/Chevrolet_Camaro.jpg" alt="Auto 6" />
+          <h3>Chevrolet Camaro 2022</h3>
+          <p>
+            Coupé deportivo con gran carácter y presencia en carretera, ideal
+            para quienes valoran potencia y estilo distintivo..
+          </p>
+          <a href="/src/detalle_auto.html?id=6">Ver más</a>
+        </div>
+      </section>
     </main>
 
     <!-- ===========================
          FOOTER
     ============================ -->
-    <footer class="piePagina">
-        <div class="contenedorFooter"> 
-            <img class="logoFooter" src="../img/logos/logo2.png" alt="">
-            <div class ="menuFooter"> 
-                <a href="landingPage.html">Inicio</a>
-                <a href="#hero">Sobre nosotros</a>
-                <a href="catalogo.html">Nuestros vehículos</a>
-                <a href="https://www.instagram.com/">Contáctanos</a>
-            </div>
-            <div class="contenedorRedes">
-                <a href="https://www.facebook.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoFacebook.png" alt="">
-                </a>
-                <a href="https://www.instagram.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoInstagram.png" alt="">
-                </a>
-                <a href="https://www.tiktok.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoTikTok.png" alt="">
-                </a>
-                <a href="https://x.com/"> 
-                    <img class="logosRedes" src="../img/logos/logoX.png" alt="">
-                </a>
-            </div>
-        </div>
-        <h3 class="contenidoPie">Copyright © 2024 Pride Autosales - Todos los derechos reservados. Términos y Condiciones</h3>
-    </footer>
+<footer class="piePagina">
+  <div class="contenedorFooter">
+    <!-- Columna 1: Sobre Nosotros -->
+    <div class="columnaFooter" id="sobreNosotros">
+      <h4 class="tituloColumna">Sobre Nosotros</h4>
+      <p class="textoFooter">
+        Pride Autosales es tu patio de vehículos de confianza. Ofrecemos una
+        amplia selección de autos usados certificados con garantía y
+        financiamiento flexible.
+      </p>
+      <p class="textoFooter">
+        Comprometidos con la calidad y satisfacción de nuestros clientes.
+      </p>
+    </div>
 
-</body>
+    <!-- Columna 2: Atención al Cliente -->
+    <div class="columnaFooter" id="atencionCliente">
+      <h4 class="tituloColumna">Atención al Cliente</h4>
+      <ul class="listaFooter">
+        <li><a href="#" class="enlaceFooter">Preguntas Frecuentes</a></li>
+        <li><a href="#" class="enlaceFooter">Financiamiento</a></li>
+        <li><a href="#" class="enlaceFooter">Garantías</a></li>
+        <li><a href="#" class="enlaceFooter">Contáctanos</a></li>
+      </ul>
+      <p class="textoFooter">
+        <strong>Teléfono:</strong> (04) 123-4567<br />
+        <strong>Email:</strong> info@prideautosales.com
+      </p>
+    </div>
+
+    <!-- Columna 3: Horarios de Servicio -->
+    <div class="columnaFooter" id="horariosServicio">
+      <h4 class="tituloColumna">Horarios de Servicio</h4>
+      <ul class="listaHorarios">
+        <li><span>Lunes - Viernes:</span> 9:00 AM - 7:00 PM</li>
+        <li><span>Sábados:</span> 9:00 AM - 5:00 PM</li>
+        <li><span>Domingos:</span> 10:00 AM - 3:00 PM</li>
+      </ul>
+      <p class="textoFooter direccion">
+        <strong>Dirección:</strong><br />
+        Av. Principal #123<br />
+        Guayaquil, Ecuador
+      </p>
+    </div>
+
+    <!-- Columna 4: Redes Sociales -->
+    <div class="columnaFooter" id="redesSociales">
+      <h4 class="tituloColumna">Síguenos</h4>
+      <p class="textoFooter">Conéctate con nosotros en redes sociales</p>
+      <div class="contenedorRedes">
+        <a href="https://www.facebook.com/" class="enlaceRed" aria-label="Facebook">
+          <img class="logosRedes" src="../img/logos/logoFacebook.png" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com/" class="enlaceRed" aria-label="Instagram">
+          <img class="logosRedes" src="../img/logos/logoInstagram.png" alt="Instagram" />
+        </a>
+        <a href="https://www.tiktok.com/" class="enlaceRed" aria-label="TikTok">
+          <img class="logosRedes" src="../img/logos/logoTikTok.png" alt="TikTok" />
+        </a>
+        <a href="https://x.com/" class="enlaceRed" aria-label="X (Twitter)">
+          <img class="logosRedes" src="../img/logos/logoX.png" alt="X" />
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de Copyright -->
+  <div class="barraCopyright">
+    <p class="contenidoPie">
+      Copyright © 2024 Pride Autosales - Todos los derechos reservados.
+      <a href="#" class="enlaceTerminos">Términos y Condiciones</a>
+    </p>
+  </div>
+</footer>
+
+  </body>
 </html>
 <script type="module" src="../scripts/catalogo.js"></script>
-
-
-
-
-
