@@ -131,65 +131,126 @@
 }
 
 
-.piePagina{
-    padding-left: 20px;
-    padding-right: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-around;
-    align-items: center;
-    background-color: black;
-    width: 100%;
-    min-height: 120px;
-    padding-bottom: 18px;
-
-}
-.menuFooter a{
-    text-decoration: none;
+.piePagina {
+    background-color: #1a1a1a;
     color: #ffffff;
-    font-size: 15px;
-    font-weight: 400;
-    font-family: 'ToyotaType';
-    margin: 0 15px;
-    opacity: 0.8;
-    text-shadow: 0px 0px 5px rgb(219, 219, 219);
+    padding: 60px 20px 20px;
+    font-family: Arial, sans-serif;
 }
-
 
 .contenedorFooter {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    justify-content: space-evenly;
-    border-bottom: #ffffff 1px solid;
-    font-size: 12px;
-    font-weight: 400;
-    border-radius: 8px;
-    width: 100%;
-    height: 170px;
     max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+    margin-bottom: 40px;
+}
 
-}
-.contenidoPie{
-    font-family: 'ToyotaType';
-    font-weight: 400;
-    color: #ffffff;
-    font-size: 12px;
-    opacity: 0.8;
-    text-shadow: 0px 0px 3px rgb(168, 168, 168);
-}
-.contenedorRedes{
-    width: 23%;
+.columnaFooter {
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-self: center;
-    margin: 10px 0px;
-    gap: 60px;
-    
-
+    flex-direction: column;
 }
-.logosRedes{
-    width: 22px;
-    filter: drop-shadow(5px 5px 10px rgb(235, 26, 26))
+
+.tituloColumna {
+    color: #ff1818;
+    font-size: 18px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.textoFooter {
+    color: #cccccc;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 12px;
+}
+
+.textoFooter strong {
+    color: #ffffff;
+}
+
+.listaFooter,
+.listaHorarios {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.listaFooter li,
+.listaHorarios li {
+    margin-bottom: 10px;
+    color: #ffffff;
+    font-size: 14px;
+}
+
+.listaHorarios li span {
+    color: #ffffff;
+    font-weight: bold;
+    display: inline-block;
+    min-width: 120px;
+}
+
+.enlaceFooter {
+    color: #cccccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.enlaceFooter:hover {
+    color: #ff6b35;
+}
+
+.direccion {
+    margin-top: 15px;
+}
+
+.contenedorRedes {
+    display: flex;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.enlaceRed {
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.enlaceRed:hover {
+    transform: translateY(-5px);
+}
+
+.logosRedes {
+    width: 40px;
+    height: 40px;
+    border-radius: 8px;
+    transition: opacity 0.3s ease;
+}
+
+.logosRedes:hover {
+    opacity: 0.8;
+}
+
+.barraCopyright {
+    border-top: 1px solid #333333;
+    padding-top: 20px;
+    text-align: center;
+}
+
+.contenidoPie {
+    color: #999999;
+    font-size: 13px;
+    margin: 0;
+}
+
+.enlaceTerminos {
+    color: #ff3535;
+    text-decoration: none;
+    margin-left: 10px;
+}
+
+.enlaceTerminos:hover {
+    text-decoration: underline;
 }
